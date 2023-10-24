@@ -27,10 +27,10 @@ private:
     ofShader shader;
 
     ofImage emptyImage;
-    ofFbo joinedImageFbo;
-    ofFbo fbo;
+    ofFbo fbo, joinedImageFbo;
 
-    int dirSize, numCrop, windowWidth, windowHeight, textureWidth, textureHeight;
+    int numImages, numCrop;
+    glm::vec2 windowSize, textureSize;
     ofDirectory dir;
     vector<ofImage> images;
     vector<float> periodicTime;

@@ -1,52 +1,55 @@
 #include "ofApp.h"
 
-// shaderデータをセット
-void ofApp::init()
-{
-    windowWidth = ofGetWindowWidth();
-    windowHeight = ofGetWindowHeight();
-
-    fbo.allocate(windowWidth, windowHeight);
-    emptyImage.allocate(windowWidth, windowHeight, OF_IMAGE_COLOR_ALPHA);
-
-    joinedImageFbo.begin();
-    for (int i = 0; i < dirSize; i++)
-    {
-        images[i].draw(i * textureWidth, 0);
-    }
-    joinedImageFbo.end();
-
-    shader.load("shadersGL3/shader");
-    shader.begin();
-    shader.setUniform1i("numImages", dirSize);
-    shader.setUniform2f("textureResolution", textureWidth, textureHeight);
-    shader.setUniform2f("windowResolution", windowWidth, windowHeight);
-    shader.setUniformTexture("joinedTexture", joinedImageFbo.getTexture(), 1);
-    shader.end();
-}
-
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    numCrop = 10;
+
     dir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
     dir.allowExt("jpg");
-    dirSize = dir.size();
-    images.assign(dirSize, ofImage());
-    for (int i = 0; i < dirSize; i++)
+    numImages = dir.size();
+    images.assign(numImages, ofImage());
+    for (int i = 0; i < numImages; i++)
     {
         images[i].load(dir.getPath(i)); // imagesに画像をロード
-        if (textureWidth < images[i].getWidth())
-            textureWidth = images[i].getWidth();
-        if (textureHeight < images[i].getHeight())
-            textureHeight = images[i].getHeight();
+        if (textureSize.x < images[i].getWidth())
+            textureSize.x = images[i].getWidth();
+        if (textureSize.y < images[i].getHeight())
+            textureSize.y = images[i].getHeight();
     }
-    for (int i = 0; i < dirSize; i++)
+    for (int i = 0; i < numImages; i++)
     {
-        images[i].resize(textureWidth, textureHeight);
+        images[i].resize(textureSize.x, textureSize.y);
     }
-    joinedImageFbo.allocate(textureWidth * dirSize, textureHeight);
+    joinedImageFbo.allocate(textureSize.x * numImages, textureSize.y);
 
     init();
+}
+
+//--------------------------------------------------------------
+// shaderデータをセット
+void ofApp::init()
+{
+    windowSize = {ofGetWindowWidth(), ofGetWindowHeight()};
+
+    fbo.allocate(windowSize.x, windowSize.y);
+    emptyImage.allocate(windowSize.x, windowSize.y, OF_IMAGE_COLOR_ALPHA);
+
+    joinedImageFbo.begin();
+    for (int i = 0; i < numImages; i++)
+    {
+        images[i].draw(i * textureSize.x, 0);
+    }
+    joinedImageFbo.end();
+
+    shader.load("shader/shader");
+    shader.begin();
+    shader.setUniform1i("numCrop", numCrop);
+    shader.setUniform1i("numImages", numImages);
+    shader.setUniform2f("textureSize", textureSize.x, textureSize.y);
+    shader.setUniform2f("windowSize", windowSize.x, windowSize.y);
+    shader.setUniformTexture("joinedTexture", joinedImageFbo.getTexture(), 1);
+    shader.end();
 }
 
 //--------------------------------------------------------------
@@ -58,14 +61,13 @@ void ofApp::update()
 void ofApp::draw()
 {
     shader.begin();
-    emptyImage.draw(0, 0, windowWidth, windowHeight);
+    emptyImage.draw(0, 0, windowSize.x, windowSize.y);
     shader.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    init();
 }
 
 //--------------------------------------------------------------
@@ -86,6 +88,7 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
+    init();
 }
 
 //--------------------------------------------------------------

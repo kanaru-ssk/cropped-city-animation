@@ -11,6 +11,6 @@ out vec2 texCoordVarying;
 
 void main()
 {
-    texCoordVarying = vec2(texcoord.x * textureSize.x / windowSize.x, texcoord.y * textureSize.y / windowSize.y);
+    texCoordVarying = texcoord;
 	gl_Position = modelViewProjectionMatrix * position;
 }

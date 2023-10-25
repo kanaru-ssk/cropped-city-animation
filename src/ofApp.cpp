@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    numCrop = 100;
+    numCrop = 1024;
 
     dir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
     dir.allowExt("jpg");

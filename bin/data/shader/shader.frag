@@ -12,24 +12,9 @@ out vec4 outputColor;
 
 void main()
 {
-    int[100] imageIds = int[](
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9,
-        0,1,2,3,4,5,6,7,8,9
-    );
     vec2 uv = gl_FragCoord.xy / windowSize.xy;
-    vec4 color = vec4(0, 0, 0, 0);
-    
-    for (int i = 0; i < numCrop; i++) {
-        color = mix(color, texture(joinedTexture, vec2(texCoordVarying.x + imageIds[i] * textureSize.x, texCoordVarying.y)), i / float(numCrop) <= uv.x && uv.x < i + 1 / float(numCrop) ? 1 : 0);
-    }
+    int imageId = int(gl_FragCoord.x * numCrop / windowSize.x) % numImages;
+    vec4 color  = texture(joinedTexture, vec2(texCoordVarying.x + imageId * textureSize.x, texCoordVarying.y));
 
 	outputColor = color;
 }

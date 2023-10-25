@@ -11,11 +11,9 @@ void ofApp::setup()
     images.assign(numImages, ofImage());
     textureW = ofGetWindowWidth();
     textureH = ofGetWindowHeight();
-    cout << "textureW : " + ofToString(textureW) + ",textureH : " + ofToString(textureH) + ",numImages : " + ofToString(numImages) << endl;
     for (int i = 0; i < numImages; i++)
     {
         images[i].load(dir.getPath(i)); // imagesに画像をロード
-        images[i].resize(textureW, textureH);
     }
 
     // [ error ] ofFbo: FRAMEBUFFER_INCOMPLETE_ATTACHMENT
@@ -38,7 +36,7 @@ void ofApp::init()
     joinedImageFbo.begin();
     for (int i = 0; i < numImages; i++)
     {
-        images[i].draw(i * textureW, 0);
+        images[i].draw(i * textureW, 0, textureW, textureH);
     }
     joinedImageFbo.end();
 

@@ -1,3 +1,4 @@
 .vscode
 bin/cropped-city-animation_debug.app
 obj
+.DS_Store

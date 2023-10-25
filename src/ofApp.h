@@ -29,8 +29,7 @@ private:
     ofImage emptyImage;
     ofFbo fbo, joinedImageFbo;
 
-    int numImages, numCrop;
-    glm::vec2 windowSize, textureSize;
+    int numImages, numCrop, windowW, windowH, textureW, textureH;
     ofDirectory dir;
     vector<ofImage> images;
     vector<float> periodicTime;

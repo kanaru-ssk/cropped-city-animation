@@ -3,25 +3,24 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    numCrop = 10;
+    numCrop = 100;
 
     dir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
     dir.allowExt("jpg");
     numImages = dir.size();
     images.assign(numImages, ofImage());
+    textureW = ofGetWindowWidth();
+    textureH = ofGetWindowHeight();
+    cout << "textureW : " + ofToString(textureW) + ",textureH : " + ofToString(textureH) + ",numImages : " + ofToString(numImages) << endl;
     for (int i = 0; i < numImages; i++)
     {
         images[i].load(dir.getPath(i)); // imagesに画像をロード
-        if (textureSize.x < images[i].getWidth())
-            textureSize.x = images[i].getWidth();
-        if (textureSize.y < images[i].getHeight())
-            textureSize.y = images[i].getHeight();
+        images[i].resize(textureW, textureH);
     }
-    for (int i = 0; i < numImages; i++)
-    {
-        images[i].resize(textureSize.x, textureSize.y);
-    }
-    joinedImageFbo.allocate(textureSize.x * numImages, textureSize.y);
+
+    // [ error ] ofFbo: FRAMEBUFFER_INCOMPLETE_ATTACHMENT
+    // テクスチャサイズに制限あり？
+    joinedImageFbo.allocate(textureW * numImages, textureH);
 
     init();
 }
@@ -30,15 +29,16 @@ void ofApp::setup()
 // shaderデータをセット
 void ofApp::init()
 {
-    windowSize = {ofGetWindowWidth(), ofGetWindowHeight()};
+    windowW = ofGetWindowWidth();
+    windowH = ofGetWindowHeight();
 
-    fbo.allocate(windowSize.x, windowSize.y);
-    emptyImage.allocate(windowSize.x, windowSize.y, OF_IMAGE_COLOR_ALPHA);
+    fbo.allocate(windowW, windowH);
+    emptyImage.allocate(windowW, windowH, OF_IMAGE_COLOR_ALPHA);
 
     joinedImageFbo.begin();
     for (int i = 0; i < numImages; i++)
     {
-        images[i].draw(i * textureSize.x, 0);
+        images[i].draw(i * textureW, 0);
     }
     joinedImageFbo.end();
 
@@ -46,8 +46,8 @@ void ofApp::init()
     shader.begin();
     shader.setUniform1i("numCrop", numCrop);
     shader.setUniform1i("numImages", numImages);
-    shader.setUniform2f("textureSize", textureSize.x, textureSize.y);
-    shader.setUniform2f("windowSize", windowSize.x, windowSize.y);
+    shader.setUniform2f("textureSize", textureW, textureH);
+    shader.setUniform2f("windowSize", windowW, windowH);
     shader.setUniformTexture("joinedTexture", joinedImageFbo.getTexture(), 1);
     shader.end();
 }
@@ -61,7 +61,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     shader.begin();
-    emptyImage.draw(0, 0, windowSize.x, windowSize.y);
+    emptyImage.draw(0, 0, windowW, windowH);
     shader.end();
 }
 

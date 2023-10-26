@@ -42,11 +42,11 @@ void ofApp::init()
 
     shader.load("shader/render");
     shader.begin();
-    shader.setUniform1i("numSplit", numSplit);
-    shader.setUniform1i("numImages", numImages);
-    shader.setUniform2f("textureSize", textureW, textureH);
-    shader.setUniform2f("windowSize", windowW, windowH);
-    shader.setUniformTexture("joinedTexture", joinedImageFbo.getTexture(), 1);
+        shader.setUniform1i("numSplit", numSplit);
+        shader.setUniform1i("numImages", numImages);
+        shader.setUniform2f("textureSize", textureW, textureH);
+        shader.setUniform2f("windowSize", windowW, windowH);
+        shader.setUniformTexture("joinedTexture", joinedImageFbo.getTexture(), 1);
     shader.end();
 
     // 分割領域毎のデータ作成
@@ -66,20 +66,22 @@ void ofApp::init()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-    // splittedAreaData.dst->begin();
-    // ofClear(0);
-    // updateSplittedAreaShader.begin();
-    // updateSplittedAreaShader.setUniformTexture("backbuffer", splittedAreaData.src->getTexture(), 1);   // passing the previus velocity information
-    // updateSplittedAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-    
-    // splittedAreaData.src->draw(0, 0);
-    
-    // updateSplittedAreaShader.end();
-    // splittedAreaData.dst->end();
-    
-    // splittedAreaData.swap();
+    //----------------------------------------------------------
+    splittedAreaData.dst->begin();
+        ofClear(0);
+        updateSplittedAreaShader.begin();
 
+            updateSplittedAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+            updateSplittedAreaShader.setUniformTexture("backbuffer", splittedAreaData.src->getTexture(), 3);   // passing the previus velocity information
+            
+            splittedAreaData.src->draw(0, 0);
+        
+        updateSplittedAreaShader.end();
+    splittedAreaData.dst->end();
+    
+    splittedAreaData.swap();
 
+    //----------------------------------------------------------
     shader.begin();
         ofClear(0);
         shader.setUniformTexture("splittedAreaData", splittedAreaData.src->getTexture(), 2);
@@ -90,7 +92,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     shader.begin();
-    emptyImage.draw(0, 0, windowW, windowH);
+        emptyImage.draw(0, 0, windowW, windowH);
     shader.end();
 }
 

@@ -9,8 +9,7 @@ out vec4 outputColor;
 
 void main()
 {
-  vec4 color = texture( backbuffer, texCoordVarying );
+  vec4 color = texture(backbuffer, texCoordVarying);
 
-   outputColor = color;
-	// outputColor = vec4(texCoordVarying.x / 32.0f);
+  outputColor = color;
 }

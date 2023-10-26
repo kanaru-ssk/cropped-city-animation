@@ -1,4 +1,4 @@
 .vscode
-bin/cropped-city-animation_debug.app
+bin/splited-city_debug.app
 obj
 .DS_Store

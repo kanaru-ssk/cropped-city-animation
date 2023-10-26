@@ -28,6 +28,7 @@ private:
 
     ofImage emptyImage;
     ofFbo fbo, joinedImageFbo;
+    // pingPongBuffer eachCropsData;
 
     int numImages, numCrop, windowW, windowH, textureW, textureH;
     ofDirectory dir;

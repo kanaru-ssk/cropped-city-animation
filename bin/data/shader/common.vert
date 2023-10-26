@@ -1,7 +1,5 @@
 #version 150
 
-uniform vec2 textureSize;
-uniform vec2 windowSize;
 uniform mat4 modelViewProjectionMatrix;
 
 in vec4 position;
@@ -12,5 +10,5 @@ out vec2 texCoordVarying;
 void main()
 {
     texCoordVarying = texcoord;
-	gl_Position = modelViewProjectionMatrix * position;
+    gl_Position = modelViewProjectionMatrix * position;
 }

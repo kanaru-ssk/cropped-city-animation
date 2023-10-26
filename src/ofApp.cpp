@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    numCrop = 1024;
+    numSplit = 16;
 
     dir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
     dir.allowExt("jpg");
@@ -19,6 +19,20 @@ void ofApp::setup()
     // [ error ] ofFbo: FRAMEBUFFER_INCOMPLETE_ATTACHMENT
     // テクスチャサイズに制限あり？
     joinedImageFbo.allocate(textureW * numImages, textureH);
+
+    // 
+    updateSplittedAreaShader.load("shader/common.vert", "shader/areaUpdate.frag");
+    // 分割領域毎のデータ作成
+    vector<float> data(numSplit*4);
+    for (int x = 0; x < numSplit; x++){
+        data[x*4 + 0] = ofRandom(1.0); // currentImageId;
+        data[x*4 + 1] = ofRandom(1.0); // nextImageId;
+        data[x*4 + 2] = 0; // opacity;
+        data[x*4 + 3] = ofRandom(1.0); // switch period;
+    }
+    splittedAreaData.allocate(numSplit, 1, GL_RGBA);
+    splittedAreaData.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGBA);
+    splittedAreaData.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGBA);
 
     init();
 }
@@ -40,9 +54,9 @@ void ofApp::init()
     }
     joinedImageFbo.end();
 
-    shader.load("shader/shader");
+    shader.load("shader/common.vert", "shader/render.frag");
     shader.begin();
-    shader.setUniform1i("numCrop", numCrop);
+    shader.setUniform1i("numSplit", numSplit);
     shader.setUniform1i("numImages", numImages);
     shader.setUniform2f("textureSize", textureW, textureH);
     shader.setUniform2f("windowSize", windowW, windowH);
@@ -53,6 +67,9 @@ void ofApp::init()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    shader.begin();
+        shader.setUniformTexture("splittedAreaData", splittedAreaData.src->getTexture(), 2);
+    shader.end();
 }
 
 //--------------------------------------------------------------

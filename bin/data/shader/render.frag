@@ -22,4 +22,10 @@ void main()
     vec4 color = mix(nextTexture, currentTexture, splittedAreaDataTexture.b);
 
 	outputColor = color;
+
+    // vec2 coord = vec2(texCoordVarying.x * textureSize.x / windowSize.x, texCoordVarying.y * textureSize.y / windowSize.y);
+    // vec4 currentTexture = texture(joinedTexture, coord);
+    // outputColor = vec4(vec3(currentTexture.r), 1);
+    
+
 }

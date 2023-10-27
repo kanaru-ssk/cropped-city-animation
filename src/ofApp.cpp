@@ -51,15 +51,15 @@ void ofApp::init()
 
     // 分割領域毎のデータ作成
     vector<float> data(numSplit*4);
-    for (int x = 0; x < numSplit; x++){
-        data[x*4 + 0] = ofRandom(1.0); // currentImageId;
-        data[x*4 + 1] = ofRandom(1.0); // nextImageId;
-        data[x*4 + 2] = 0; // opacity;
-        data[x*4 + 3] = 1; // switch period;
+    for (int i = 0; i < numSplit; i++){
+        data[i*2 + 0] = ofRandom(1.0);      // currentImageId;
+        data[i*2 + 1] = ofRandom(1.0);      // nextImageId;
+        data[numSplit*2 + i*2 + 0] = 0;     // opacity;
+        data[numSplit*2 + i*2 + 1] = 0.99f; // switch period;
     }
-    splittedAreaData.allocate(numSplit, 1, GL_RGBA);
-    splittedAreaData.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGBA);
-    splittedAreaData.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGBA);
+    splittedAreaData.allocate(numSplit, 2, GL_RG);
+    splittedAreaData.src->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
+    splittedAreaData.dst->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
     updateSplittedAreaShader.load("shader/update");
 }
 
@@ -73,9 +73,8 @@ void ofApp::update()
 
             updateSplittedAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
             updateSplittedAreaShader.setUniformTexture("backbuffer", splittedAreaData.src->getTexture(), 3);   // passing the previus velocity information
-            
             splittedAreaData.src->draw(0, 0);
-        
+
         updateSplittedAreaShader.end();
     splittedAreaData.dst->end();
     

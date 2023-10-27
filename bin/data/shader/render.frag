@@ -16,10 +16,11 @@ void main()
     vec2 uv = gl_FragCoord.xy / windowSize.xy;
     vec2 coord = vec2(texCoordVarying.x * textureSize.x / windowSize.x, texCoordVarying.y * textureSize.y / windowSize.y);
     int splitIndex = int(gl_FragCoord.x * numSplit / windowSize.x);
-    vec4 splittedAreaDataTexture = texture(splittedAreaData, vec2(splitIndex, 0));
-    vec4 currentTexture = texture(joinedTexture, vec2(coord.x + int(splittedAreaDataTexture.r * numImages) * textureSize.x, coord.y));
-    vec4 nextTexture = texture(joinedTexture, vec2(coord.x + int(splittedAreaDataTexture.g * numImages) * textureSize.x, coord.y));
-    vec4 color = mix(nextTexture, currentTexture, splittedAreaDataTexture.b);
+    vec4 imageIds = texture(splittedAreaData, vec2(splitIndex, 0));
+    vec4 currentTexture = texture(joinedTexture, vec2(coord.x + int(imageIds.r * numImages) * textureSize.x, coord.y));
+    vec4 nextTexture = texture(joinedTexture, vec2(coord.x + int(imageIds.g * numImages) * textureSize.x, coord.y));
+    vec4 opacites = texture(splittedAreaData, vec2(splitIndex, 1));
+    vec4 color = mix(nextTexture, currentTexture, opacites.r);
 
 	outputColor = color;
 }

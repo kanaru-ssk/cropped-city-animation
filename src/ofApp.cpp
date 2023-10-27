@@ -39,7 +39,7 @@ void ofApp::init()
     }
     joinedFbo.end();
 
-    renderShader.load("shader/render");
+    renderShader.load("shader/passthru.vert", "shader/render.frag");
     renderShader.begin();
         renderShader.setUniform1i("numSplit", numSplit);
         renderShader.setUniform1i("numImages", numImages);
@@ -61,7 +61,7 @@ void ofApp::init()
     splitTex.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
     splitTex.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
     dOpacityTex.loadData(dOpacityData.data(), numSplit, 1, GL_RED);
-    splitShader.load("renderShader/update");
+    splitShader.load("shader/passthru.vert", "shader/update.frag");
     splitShader.begin();
         splitShader.setUniformTexture("dOpacityTex", dOpacityTex, 4);
     splitShader.end();

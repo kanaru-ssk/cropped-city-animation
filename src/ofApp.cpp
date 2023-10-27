@@ -51,20 +51,20 @@ void ofApp::init()
 
     // 分割領域毎のデータ作成
     vector<float> data(numSplit*3);
-    vector<float> opacityDeltaData(numSplit);
+    vector<float> dOpacityData(numSplit);
     for (int i = 0; i < numSplit; i++){
         data[i*3 + 0] = ofRandom(1.0);              // currentImageId
         data[i*3 + 1] = ofRandom(1.0);              // nextImageId
         data[i*3 + 2] = 0.5f;                       // opacity
-        opacityDeltaData[i] = ofRandom(0.01, 0.03); // opacityDelta
+        dOpacityData[i] = ofRandom(0.01, 0.03); // dOpacity
     }
     splitTex.allocate(numSplit, 1, GL_RGB);
     splitTex.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
     splitTex.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
-    opacityDelta.loadData(opacityDeltaData.data(), numSplit, 1, GL_RED);
+    dOpacityTex.loadData(dOpacityData.data(), numSplit, 1, GL_RED);
     updateSplitAreaShader.load("shader/update");
     updateSplitAreaShader.begin();
-        updateSplitAreaShader.setUniformTexture("opacityDelta", opacityDelta, 4);
+        updateSplitAreaShader.setUniformTexture("dOpacityTex", dOpacityTex, 4);
     updateSplitAreaShader.end();
 
 }
@@ -78,7 +78,7 @@ void ofApp::update()
         updateSplitAreaShader.begin();
 
             updateSplitAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-            updateSplitAreaShader.setUniformTexture("backbuffer", splitTex.src->getTexture(), 3);
+            updateSplitAreaShader.setUniformTexture("preTex", splitTex.src->getTexture(), 3);
             splitTex.src->draw(0, 0);
 
         updateSplitAreaShader.end();

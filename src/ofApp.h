@@ -66,7 +66,7 @@ private:
     ofImage emptyImage;
     ofFbo fbo, joinedImageFbo;
     pingPongBuffer splitTex;
-		ofTexture opacityDelta;
+		ofTexture dOpacityTex;
 
     int numImages, numSplit, winW, winH, texW, texH;
     ofDirectory dir;

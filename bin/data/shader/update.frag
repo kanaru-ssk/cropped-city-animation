@@ -4,14 +4,14 @@ uniform float elapsedTime;
 uniform sampler2DRect opacityDelta;
 uniform sampler2DRect backbuffer;
 
-in vec2 texCoordVarying;
+in vec2 texCoord;
 
 out vec4 outputColor;
 
 void main()
 {
-  vec4 data = texture(backbuffer, vec2(texCoordVarying));
-  float opacityDeltaData = texture(opacityDelta, vec2(texCoordVarying.x, 0)).r;
+  vec4 data = texture(backbuffer, vec2(texCoord));
+  float opacityDeltaData = texture(opacityDelta, vec2(texCoord.x, 0)).r;
 
   data.b = data.b - opacityDeltaData;
 

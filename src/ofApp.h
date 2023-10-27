@@ -65,10 +65,10 @@ private:
 
     ofImage emptyImage;
     ofFbo fbo, joinedImageFbo;
-    pingPongBuffer splitAreaData;
+    pingPongBuffer splitTex;
 		ofTexture opacityDelta;
 
-    int numImages, numSplit, windowW, windowH, textureW, textureH;
+    int numImages, numSplit, winW, winH, texW, texH;
     ofDirectory dir;
     vector<ofImage> images;
     vector<float> periodicTime;

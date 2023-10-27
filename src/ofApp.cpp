@@ -9,8 +9,8 @@ void ofApp::setup()
     dir.allowExt("jpg");
     numImages = dir.size();
     images.assign(numImages, ofImage());
-    textureW = ofGetWindowWidth();
-    textureH = ofGetWindowHeight();
+    texW = ofGetWindowWidth();
+    texH = ofGetWindowHeight();
     for (int i = 0; i < numImages; i++)
     {
         images[i].load(dir.getPath(i)); // imagesに画像をロード
@@ -18,7 +18,7 @@ void ofApp::setup()
 
     // [ error ] ofFbo: FRAMEBUFFER_INCOMPLETE_ATTACHMENT
     // テクスチャサイズに制限あり？
-    joinedImageFbo.allocate(textureW * numImages, textureH);
+    joinedImageFbo.allocate(texW * numImages, texH);
 
     init();
 }
@@ -27,16 +27,16 @@ void ofApp::setup()
 // shaderデータをセット
 void ofApp::init()
 {
-    windowW = ofGetWindowWidth();
-    windowH = ofGetWindowHeight();
+    winW = ofGetWindowWidth();
+    winH = ofGetWindowHeight();
 
-    fbo.allocate(windowW, windowH);
-    emptyImage.allocate(windowW, windowH, OF_IMAGE_COLOR_ALPHA);
+    fbo.allocate(winW, winH);
+    emptyImage.allocate(winW, winH, OF_IMAGE_COLOR_ALPHA);
 
     joinedImageFbo.begin();
     for (int i = 0; i < numImages; i++)
     {
-        images[i].draw(i * textureW, 0, textureW, textureH);
+        images[i].draw(i * texW, 0, texW, texH);
     }
     joinedImageFbo.end();
 
@@ -44,9 +44,9 @@ void ofApp::init()
     shader.begin();
         shader.setUniform1i("numSplit", numSplit);
         shader.setUniform1i("numImages", numImages);
-        shader.setUniform2f("textureSize", textureW, textureH);
-        shader.setUniform2f("windowSize", windowW, windowH);
-        shader.setUniformTexture("joinedTexture", joinedImageFbo.getTexture(), 1);
+        shader.setUniform2f("texSize", texW, texH);
+        shader.setUniform2f("winSize", winW, winH);
+        shader.setUniformTexture("joinedTex", joinedImageFbo.getTexture(), 1);
     shader.end();
 
     // 分割領域毎のデータ作成
@@ -58,9 +58,9 @@ void ofApp::init()
         data[i*3 + 2] = 0.5f;                       // opacity
         opacityDeltaData[i] = ofRandom(0.01, 0.03); // opacityDelta
     }
-    splitAreaData.allocate(numSplit, 1, GL_RGB);
-    splitAreaData.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
-    splitAreaData.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
+    splitTex.allocate(numSplit, 1, GL_RGB);
+    splitTex.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
+    splitTex.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
     opacityDelta.loadData(opacityDeltaData.data(), numSplit, 1, GL_RED);
     updateSplitAreaShader.load("shader/update");
     updateSplitAreaShader.begin();
@@ -73,23 +73,23 @@ void ofApp::init()
 void ofApp::update()
 {
     //----------------------------------------------------------
-    splitAreaData.dst->begin();
+    splitTex.dst->begin();
         ofClear(0);
         updateSplitAreaShader.begin();
 
             updateSplitAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-            updateSplitAreaShader.setUniformTexture("backbuffer", splitAreaData.src->getTexture(), 3);
-            splitAreaData.src->draw(0, 0);
+            updateSplitAreaShader.setUniformTexture("backbuffer", splitTex.src->getTexture(), 3);
+            splitTex.src->draw(0, 0);
 
         updateSplitAreaShader.end();
-    splitAreaData.dst->end();
+    splitTex.dst->end();
     
-    splitAreaData.swap();
+    splitTex.swap();
 
     //----------------------------------------------------------
     shader.begin();
         ofClear(0);
-        shader.setUniformTexture("splitAreaData", splitAreaData.src->getTexture(), 2);
+        shader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
     shader.end();
 }
 
@@ -97,7 +97,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     shader.begin();
-        emptyImage.draw(0, 0, windowW, windowH);
+        emptyImage.draw(0, 0, winW, winH);
     shader.end();
 }
 

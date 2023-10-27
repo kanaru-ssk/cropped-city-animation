@@ -57,33 +57,33 @@ void ofApp::init()
         data[numSplit*2 + i*2 + 0] = 0;     // opacity;
         data[numSplit*2 + i*2 + 1] = 0.99f; // switch period;
     }
-    splittedAreaData.allocate(numSplit, 2, GL_RG);
-    splittedAreaData.src->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
-    splittedAreaData.dst->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
-    updateSplittedAreaShader.load("shader/update");
+    splitAreaData.allocate(numSplit, 2, GL_RG);
+    splitAreaData.src->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
+    splitAreaData.dst->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
+    updatesplitAreaShader.load("shader/update");
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
     //----------------------------------------------------------
-    splittedAreaData.dst->begin();
+    splitAreaData.dst->begin();
         ofClear(0);
-        updateSplittedAreaShader.begin();
+        updatesplitAreaShader.begin();
 
-            updateSplittedAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-            updateSplittedAreaShader.setUniformTexture("backbuffer", splittedAreaData.src->getTexture(), 3);   // passing the previus velocity information
-            splittedAreaData.src->draw(0, 0);
+            updatesplitAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+            updatesplitAreaShader.setUniformTexture("backbuffer", splitAreaData.src->getTexture(), 3);   // passing the previus velocity information
+            splitAreaData.src->draw(0, 0);
 
-        updateSplittedAreaShader.end();
-    splittedAreaData.dst->end();
+        updatesplitAreaShader.end();
+    splitAreaData.dst->end();
     
-    splittedAreaData.swap();
+    splitAreaData.swap();
 
     //----------------------------------------------------------
     shader.begin();
         ofClear(0);
-        shader.setUniformTexture("splittedAreaData", splittedAreaData.src->getTexture(), 2);
+        shader.setUniformTexture("splitAreaData", splitAreaData.src->getTexture(), 2);
     shader.end();
 }
 

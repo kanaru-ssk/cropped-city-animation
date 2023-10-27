@@ -1,4 +1,4 @@
 .vscode
-bin/splited-city_debug.app
+bin/split-city_debug.app
 obj
 .DS_Store

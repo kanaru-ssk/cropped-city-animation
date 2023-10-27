@@ -53,10 +53,10 @@ void ofApp::init()
     vector<float> data(numSplit*3);
     vector<float> opacityDeltaData(numSplit);
     for (int i = 0; i < numSplit; i++){
-        data[i*3 + 0] = ofRandom(1.0);         // currentImageId
-        data[i*3 + 1] = ofRandom(1.0);         // nextImageId
-        data[i*3 + 2] = 0.5f;                  // opacity
-        opacityDeltaData[i] = ofRandom(0.001, 0.020); // opacityDelta
+        data[i*3 + 0] = ofRandom(1.0);              // currentImageId
+        data[i*3 + 1] = ofRandom(1.0);              // nextImageId
+        data[i*3 + 2] = 0.5f;                       // opacity
+        opacityDeltaData[i] = ofRandom(0.01, 0.03); // opacityDelta
     }
     splitAreaData.allocate(numSplit, 1, GL_RGB);
     splitAreaData.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);

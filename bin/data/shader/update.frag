@@ -16,7 +16,7 @@ void main()
   if (data.b < 0.01) {
     data.b = 1.0f;
     data.g = data.r;
-    data.r = fract(elapsedTime);
+    data.r = fract(elapsedTime / opacityDeltaData);
   }
 
   outputColor = vec4(data.r, data.g, data.b, 1);

@@ -12,12 +12,15 @@ void main()
 {
   vec4 data = texture(backbuffer, vec2(texCoordVarying));
   float opacityDeltaData = texture(opacityDelta, vec2(texCoordVarying.x, 0)).r;
+
   data.b = data.b - opacityDeltaData;
-  if (data.b < 0.01) {
-    data.b = 1.0f;
-    data.g = data.r;
-    data.r = fract(elapsedTime / opacityDeltaData);
-  }
+
+  float isSwitch = step(data.b, 0.01);
+  float isNotSwitch = 1 - isSwitch;
+
+  data.b = data.b + isSwitch;
+  data.g = data.r * isSwitch + data.g * isNotSwitch;
+  data.r = fract(elapsedTime / opacityDeltaData) * isSwitch + data.r * isNotSwitch;
 
   outputColor = vec4(data.r, data.g, data.b, 1);
 }

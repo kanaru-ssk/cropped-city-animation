@@ -34,11 +34,11 @@ public:
 	}
 
 	ofFbo& operator[]( int n ){ return FBOs[n];}
-	ofFbo   *src;       // Source       ->  Ping
-	ofFbo   *dst;       // Destination  ->  Pong
+	ofFbo *src;    // Source       ->  Ping
+	ofFbo *dst;    // Destination  ->  Pong
 
 private:
-	ofFbo   FBOs[2];    // Real addresses of ping/pong FBO«s
+	ofFbo FBOs[2]; // Real addresses of ping/pong FBO«s
 };
 
 class ofApp : public ofBaseApp
@@ -60,17 +60,12 @@ public:
 
 private:
     void init();
-
-    ofShader shader, updateSplitAreaShader;
-
+    int numImages, numSplit, winW, winH, texW, texH;
+    ofDirectory imagesDir;
+    vector<ofImage> images;
+    ofFbo joinedFbo;
     ofImage emptyImage;
-    ofFbo fbo, joinedImageFbo;
+    ofShader renderShader, splitShader;
     pingPongBuffer splitTex;
 		ofTexture dOpacityTex;
-
-    int numImages, numSplit, winW, winH, texW, texH;
-    ofDirectory dir;
-    vector<ofImage> images;
-    vector<float> periodicTime;
-    vector<int> imageIds, nextImageIds, opacity, elapsedTime, elapsedTimePre;
 };

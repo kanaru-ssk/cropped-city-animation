@@ -54,17 +54,17 @@ void ofApp::init()
     renderShader.end();
 
     // 分割領域のデータ作成
-    vector<float> data(numSplit*3);
+    vector<float> splitData(numSplit*3);
     vector<float> dOpacityData(numSplit);
     for (int i = 0; i < numSplit; i++) {
-        data[i*3 + 0] = ofRandom(1.0);          // 現在の画像ID
-        data[i*3 + 1] = ofRandom(1.0);          // 次の画像ID
-        data[i*3 + 2] = 1.0f;                   // 透明度
+        splitData[i*3 + 0] = ofRandom(1.0);          // 現在の画像ID
+        splitData[i*3 + 1] = ofRandom(1.0);          // 次の画像ID
+        splitData[i*3 + 2] = 1.0f;                   // 透明度
         dOpacityData[i] = ofRandom(0.01, 0.03); // 透明度の変化幅
     }
     splitTex.allocate(numSplit, 1, GL_RGB);
-    splitTex.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
-    splitTex.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
+    splitTex.src->getTexture().loadData(splitData.data(), numSplit, 1, GL_RGB);
+    splitTex.dst->getTexture().loadData(splitData.data(), numSplit, 1, GL_RGB);
     dOpacityTex.loadData(dOpacityData.data(), numSplit, 1, GL_RED);
 
     // 分割領域のデータ更新シェーダーにデータ送信

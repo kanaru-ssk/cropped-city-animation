@@ -17,7 +17,9 @@ void main()
     vec2 coord = vec2(texCoordVarying.x * textureSize.x / windowSize.x, texCoordVarying.y * textureSize.y / windowSize.y);
 
     // 分割領域毎のデータ取得
-    int splitIndex = int(gl_FragCoord.x * numSplit / windowSize.x);
+    // int splitIndex = int(gl_FragCoord.x * numSplit / windowSize.x); // 縦分割
+    int splitIndex = int(gl_FragCoord.y * numSplit / windowSize.y); //横分割
+    // int splitIndex = int(distance(vec2(0.5, 0.5), uv) * numSplit);  // 円分割
     vec4 splitAreaDataTexture = texture(splitAreaData, vec2(splitIndex, 0));
     float currentImageId = splitAreaDataTexture.r;
     float nextImageId = splitAreaDataTexture.g;

@@ -61,11 +61,12 @@ public:
 private:
     void init();
 
-    ofShader shader, updatesplitAreaShader;
+    ofShader shader, updateSplitAreaShader;
 
     ofImage emptyImage;
     ofFbo fbo, joinedImageFbo;
     pingPongBuffer splitAreaData;
+		ofTexture opacityDelta;
 
     int numImages, numSplit, windowW, windowH, textureW, textureH;
     ofDirectory dir;

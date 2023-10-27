@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    numSplit = 16;
+    numSplit = 1024;
 
     dir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
     dir.allowExt("jpg");
@@ -50,17 +50,23 @@ void ofApp::init()
     shader.end();
 
     // 分割領域毎のデータ作成
-    vector<float> data(numSplit*4);
+    vector<float> data(numSplit*3);
+    vector<float> opacityDeltaData(numSplit);
     for (int i = 0; i < numSplit; i++){
-        data[i*2 + 0] = ofRandom(1.0);      // currentImageId;
-        data[i*2 + 1] = ofRandom(1.0);      // nextImageId;
-        data[numSplit*2 + i*2 + 0] = 0;     // opacity;
-        data[numSplit*2 + i*2 + 1] = 0.99f; // switch period;
+        data[i*3 + 0] = ofRandom(1.0);         // currentImageId
+        data[i*3 + 1] = ofRandom(1.0);         // nextImageId
+        data[i*3 + 2] = 0.5f;                  // opacity
+        opacityDeltaData[i] = ofRandom(0.001, 0.020); // opacityDelta
     }
-    splitAreaData.allocate(numSplit, 2, GL_RG);
-    splitAreaData.src->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
-    splitAreaData.dst->getTexture().loadData(data.data(), numSplit, 2, GL_RG);
-    updatesplitAreaShader.load("shader/update");
+    splitAreaData.allocate(numSplit, 1, GL_RGB);
+    splitAreaData.src->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
+    splitAreaData.dst->getTexture().loadData(data.data(), numSplit, 1, GL_RGB);
+    opacityDelta.loadData(opacityDeltaData.data(), numSplit, 1, GL_RED);
+    updateSplitAreaShader.load("shader/update");
+    updateSplitAreaShader.begin();
+        updateSplitAreaShader.setUniformTexture("opacityDelta", opacityDelta, 4);
+    updateSplitAreaShader.end();
+
 }
 
 //--------------------------------------------------------------
@@ -69,13 +75,13 @@ void ofApp::update()
     //----------------------------------------------------------
     splitAreaData.dst->begin();
         ofClear(0);
-        updatesplitAreaShader.begin();
+        updateSplitAreaShader.begin();
 
-            updatesplitAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-            updatesplitAreaShader.setUniformTexture("backbuffer", splitAreaData.src->getTexture(), 3);   // passing the previus velocity information
+            updateSplitAreaShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+            updateSplitAreaShader.setUniformTexture("backbuffer", splitAreaData.src->getTexture(), 3);
             splitAreaData.src->draw(0, 0);
 
-        updatesplitAreaShader.end();
+        updateSplitAreaShader.end();
     splitAreaData.dst->end();
     
     splitAreaData.swap();

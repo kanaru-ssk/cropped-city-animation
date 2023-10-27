@@ -19,7 +19,8 @@ void main()
     // 分割領域毎のデータ取得
     // float splitIndex = uv.x * numSplit; // 縦分割
     // float splitIndex = uv.y * numSplit; //横分割
-    float splitIndex = distance(vec2(0.5, 0.5), uv) * numSplit;  // 円分割
+    // float splitIndex = distance(vec2(0.5, 0.5), uv) * numSplit;  // 楕円分割
+    float splitIndex = distance(windowSize/2.0, gl_FragCoord.xy) * 2 / distance(vec2(0), windowSize) * numSplit; // 円分割
     vec4 splitAreaDataTexture = texture(splitAreaData, vec2(splitIndex, 0));
     float currentImageId = splitAreaDataTexture.r;
     float nextImageId = splitAreaDataTexture.g;

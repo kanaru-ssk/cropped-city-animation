@@ -8,7 +8,7 @@
 #   The location of your root openFrameworks installation
 #       (default) OF_ROOT = ../../.. 
 ################################################################################
-OF_ROOT = /Users/kanaru/Documents/development/openframeworks
+OF_ROOT = ../../..
 
 ################################################################################
 # PROJECT ROOT

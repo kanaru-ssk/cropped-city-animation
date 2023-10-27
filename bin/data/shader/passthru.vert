@@ -7,9 +7,9 @@ in vec2 texcoord;
 
 out vec2 texCoord;
 
+// 受け取ったテクスチャをそのままフラグメントシェーダーに渡す
 void main()
 {
-    // 受け取ったテクスチャをそのままフラグメントシェーダーに渡す
     texCoord = texcoord;
     gl_Position = modelViewProjectionMatrix * position;
 }

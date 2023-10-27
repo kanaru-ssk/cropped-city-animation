@@ -52,13 +52,17 @@ public:
     void windowResized(int w, int h);
 
 private:
-    void init();
-    int numImages, numSplit, winW, winH, texW, texH;
-    ofDirectory imagesDir;
-    vector<ofImage> images;
-    ofFbo joinedFbo;
-    ofImage emptyImage;
-    ofShader renderShader, splitShader;
-    pingPongBuffer splitTex;
-		ofTexture dOpacityTex;
+    void init();					   // 初期化関数 setup,mousePressed,windowResized で呼び出す
+    int numImages;					 // 画像数
+		int numSplit;						 // 分割数
+		int winW, winH;					 // ウィンドウサイズ
+		int texW, texH;					 // テクスチャサイズ
+    ofDirectory imagesDir;	 // imagesディレクトリ
+    vector<ofImage> images;  // 画像
+    ofFbo joinedFbo;				 // 全ての画像を結合した画像
+    ofImage emptyImage;      // 空画像
+    ofShader renderShader;   // 描画シェーダー
+		ofShader splitShader; 	 // 分割領域のデータ更新シェーダー
+    pingPongBuffer splitTex; // 分割領域のデータテクスチャ R:現在の画像ID G:次の画像ID B:透明度
+		ofTexture dOpacityTex;   // 透明度の変化幅
 };

@@ -8,15 +8,15 @@ in vec2 texCoord;
 
 out vec4 outputColor;
 
-// 分割領域毎のデータを更新
-// splitData.r  : 手前の画像ID
-// splitData.g  : 後ろの画像ID
-// splitData.g  : 手前の画像の透明度
+// 分割領域のデータ更新
+// splitData.r  : 現在の画像ID
+// splitData.g  : 次の画像ID
+// splitData.g  : 現在の画像の透明度
 // dOpacityData : 透明度の変化幅
 void main()
 {
-  vec4 splitData = texture(preSplitTex, texCoord); // 1フレーム前の分割領域毎のデータを取得
-  float dOpacityData = texture(dOpacityTex, texCoord).r; // 分割領域毎のデータを取得
+  vec4 splitData = texture(preSplitTex, texCoord);       // 1フレーム前の分割領域のデータ取得
+  float dOpacityData = texture(dOpacityTex, texCoord).r; // 分割領域のデータ取得
 
   // 透明度(0~1)を0に近づける
   splitData.b -= dOpacityData;
@@ -28,8 +28,8 @@ void main()
 
   // isSwitchが1になった時に以下の操作を実行
   // 1. 透明度を1(不透明)に戻す
-  // 2. 手前の画像を後ろの画像と差し替え
-  // 3. 後ろの画像をランダムに変更
+  // 2. 現在の画像を次の画像と差し替え
+  // 3. 次の画像をランダムに変更
   splitData.b += isSwitch;
   splitData.g = splitData.r * isSwitch + splitData.g * isNotSwitch;
   splitData.r = fract(elapsedTime / dOpacityData) * isSwitch + splitData.r * isNotSwitch;

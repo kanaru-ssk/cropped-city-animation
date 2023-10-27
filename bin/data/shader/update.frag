@@ -2,7 +2,7 @@
 
 uniform float elapsedTime;
 uniform sampler2DRect dOpacityTex;
-uniform sampler2DRect preTex;
+uniform sampler2DRect preSplitTex;
 
 in vec2 texCoord;
 
@@ -15,7 +15,7 @@ out vec4 outputColor;
 // dOpacityData : 透明度の変化幅
 void main()
 {
-  vec4 splitData = texture(preTex, texCoord); // 1フレーム前の分割領域毎のデータを取得
+  vec4 splitData = texture(preSplitTex, texCoord); // 1フレーム前の分割領域毎のデータを取得
   float dOpacityData = texture(dOpacityTex, texCoord).r; // 分割領域毎のデータを取得
 
   // 透明度(0~1)を0に近づける

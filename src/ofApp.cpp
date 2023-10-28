@@ -11,9 +11,9 @@ void ofApp::setup()
     // 画像ロード
     imagesDir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
     imagesDir.allowExt("jpg");
-    if (imagesDir.size() < numImages) {
+    if (imagesDir.size() < numImages)
+    {
         numImages = imagesDir.size();
-
     }
     images.assign(numImages, ofImage());
     for (int i = 0; i < numImages; i++)
@@ -52,20 +52,21 @@ void ofApp::init()
     // 描画シェーダーにデータを送信
     renderShader.load("shader/passthru.vert", "shader/render.frag");
     renderShader.begin();
-        renderShader.setUniform1i("numSplit", numSplit);
-        renderShader.setUniform1i("numImages", numImages);
-        renderShader.setUniform2f("texSize", texW, texH);
-        renderShader.setUniform2f("winSize", winW, winH);
-        renderShader.setUniformTexture("joinedTex", joinedFbo.getTexture(), 1);
+    renderShader.setUniform1i("numSplit", numSplit);
+    renderShader.setUniform1i("numImages", numImages);
+    renderShader.setUniform2f("texSize", texW, texH);
+    renderShader.setUniform2f("winSize", winW, winH);
+    renderShader.setUniformTexture("joinedTex", joinedFbo.getTexture(), 1);
     renderShader.end();
 
     // 分割領域のデータ作成
-    vector<float> splitData(numSplit*3);
+    vector<float> splitData(numSplit * 3);
     vector<float> dOpacityData(numSplit);
-    for (int i = 0; i < numSplit; i++) {
-        splitData[i*3 + 0] = ofRandom(1.0); // 現在の画像ID
-        splitData[i*3 + 1] = ofRandom(1.0); // 次の画像ID
-        splitData[i*3 + 2] = 1.0f; // 透明度
+    for (int i = 0; i < numSplit; i++)
+    {
+        splitData[i * 3 + 0] = ofRandom(1.0);                 // 現在の画像ID
+        splitData[i * 3 + 1] = ofRandom(1.0);                 // 次の画像ID
+        splitData[i * 3 + 2] = 1.0f;                          // 透明度
         dOpacityData[i] = ofRandom(minDOpacity, maxDOpacity); // 透明度の変化幅
     }
     splitTex.allocate(numSplit, 1, GL_RGB);
@@ -76,7 +77,7 @@ void ofApp::init()
     // 分割領域のデータ更新シェーダーにデータ送信
     splitShader.load("shader/passthru.vert", "shader/update.frag");
     splitShader.begin();
-        splitShader.setUniformTexture("dOpacityTex", dOpacityTex, 4);
+    splitShader.setUniformTexture("dOpacityTex", dOpacityTex, 4);
     splitShader.end();
 }
 
@@ -86,23 +87,23 @@ void ofApp::update()
     //----------------------------------------------------------
     // 分割領域のデータ更新
     splitTex.dst->begin();
-        ofClear(0);
-        splitShader.begin();
+    ofClear(0);
+    splitShader.begin();
 
-            splitShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-            splitShader.setUniformTexture("preSplitTex", splitTex.src->getTexture(), 3);
-            splitTex.src->draw(0, 0);
+    splitShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+    splitShader.setUniformTexture("preSplitTex", splitTex.src->getTexture(), 3);
+    splitTex.src->draw(0, 0);
 
-        splitShader.end();
+    splitShader.end();
     splitTex.dst->end();
-    
+
     splitTex.swap();
 
     //----------------------------------------------------------
     // 描画シェーダーにデータを送信
     renderShader.begin();
-        ofClear(0);
-        renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
+    ofClear(0);
+    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
     renderShader.end();
 }
 
@@ -111,7 +112,7 @@ void ofApp::draw()
 {
     // 空画像上に描画シェーダーのテクスチャを描画
     renderShader.begin();
-        emptyImage.draw(0, 0, winW, winH);
+    emptyImage.draw(0, 0, winW, winH);
     renderShader.end();
 }
 

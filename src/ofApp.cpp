@@ -28,7 +28,7 @@ void ofApp::setup()
     // 取得した画像を横に並べた一つの画像に変更
     // [ error ] ofFbo: FRAMEBUFFER_INCOMPLETE_ATTACHMENT
     // テクスチャサイズに制限あり？
-    joinedFbo.allocate(texW * numImages, texH);
+    joinedFbo.allocate(texW * numImages, texH, GL_RGB);
     joinedFbo.begin();
     for (int i = 0; i < numImages; i++)
     {
@@ -47,7 +47,7 @@ void ofApp::init()
     winH = ofGetWindowHeight();
 
     // 空画像のメモリ確保
-    emptyImage.allocate(winW, winH, OF_IMAGE_COLOR_ALPHA);
+    emptyImage.allocate(winW, winH, OF_IMAGE_COLOR);
 
     // 描画シェーダーにデータを送信
     renderShader.load("shader/passthru.vert", "shader/render.frag");

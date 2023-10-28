@@ -4,7 +4,7 @@
 void ofApp::setup()
 {
     numSplit = 1024;    // 分割数
-    numImages = 100;    // 画像数
+    numImages = 11;    // 画像数
     minDOpacity = 0.01; // 透明度の変化幅の最小値
     maxDOpacity = 0.03; // 透明度の変化幅の最大値
 

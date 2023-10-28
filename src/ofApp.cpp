@@ -4,47 +4,59 @@
 void ofApp::setup()
 {
     numSplit = 1024;    // 分割数
-    numImages = 11;     // 画像数
+    numImg = 11;        // 画像数
     minDOpacity = 0.01; // 透明度の変化幅の最小値
     maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
-    // 画像ロード
-    imagesDir.listDir("images"); // bin/data/images/ フォルダ内のjpg画像を取得
+    // bin/data/images/ フォルダ内のjpg画像を取得
+    imagesDir.listDir("images");
     imagesDir.allowExt("jpg");
-    if (imagesDir.size() < numImages)
+
+    // 指定した画像数より画像が少ない場合は最大数を取得する
+    if (imagesDir.size() < numImg)
     {
-        numImages = imagesDir.size();
-    }
-    images.assign(numImages, ofImage());
-    for (int i = 0; i < numImages; i++)
-    {
-        images[i].load(imagesDir.getPath(i)); // imagesに画像をロード
+        numImg = imagesDir.size();
     }
 
-    // テクスチャサイズを設定
-    texW = ofGetWindowWidth();
-    texH = ofGetWindowHeight();
-
-    // 取得した画像を横に並べた一つの画像に変更
-    // [ error ] ofFbo: FRAMEBUFFER_INCOMPLETE_ATTACHMENT
-    // テクスチャサイズに制限あり？
-    joinedFbo.allocate(texW * numImages, texH, GL_RGB);
-    joinedFbo.begin();
-    for (int i = 0; i < numImages; i++)
+    // 画像ロード
+    images.assign(numImg, ofImage());
+    for (int i = 0; i < numImg; i++)
     {
-        images[i].draw(i * texW, 0, texW, texH);
+        images[i].load(imagesDir.getPath(i));
     }
-    joinedFbo.end();
 
     init();
 }
 
 //--------------------------------------------------------------
-// renderShaderデータをセット
 void ofApp::init()
 {
+    // ウィンドウサイズを取得
     winW = ofGetWindowWidth();
     winH = ofGetWindowHeight();
+
+    imgW = winW;
+    imgH = winH;
+
+    // 結合画像内の画像の行数,列数を計算
+    imgCol = numImg * imgW < MAX_TEX_RES ? numImg : floor(MAX_TEX_RES / imgW);
+    imgRow = ceil(numImg / float(imgCol));
+    joinedTexW = imgW * imgCol;
+    joinedTexH = imgH * imgRow;
+
+    // 画像を一つの画像に結合
+    joinedFbo.allocate(joinedTexW, joinedTexH, GL_RGB);
+    joinedFbo.begin();
+    for (int y = 0; y < imgRow; y++)
+    {
+        for (int x = 0; x < imgCol; x++)
+        {
+            int index = y * imgCol + x;
+            if (index < numImg)
+                images[index].draw(x * imgW, y * imgH, imgW, imgH);
+        }
+    }
+    joinedFbo.end();
 
     // 空画像のメモリ確保
     emptyImage.allocate(winW, winH, OF_IMAGE_COLOR);
@@ -53,8 +65,9 @@ void ofApp::init()
     renderShader.load("shader/passthru.vert", "shader/render.frag");
     renderShader.begin();
     renderShader.setUniform1i("numSplit", numSplit);
-    renderShader.setUniform1i("numImages", numImages);
-    renderShader.setUniform2f("texSize", texW, texH);
+    renderShader.setUniform1i("numImg", numImg);
+    renderShader.setUniform1i("imgCol", imgCol);
+    renderShader.setUniform2f("imgSize", imgW, imgH);
     renderShader.setUniform2f("winSize", winW, winH);
     renderShader.setUniformTexture("joinedTex", joinedFbo.getTexture(), 1);
     renderShader.end();

@@ -26,7 +26,7 @@ numSplit = 1024; // 分割数
 `src/ofApp.cpp` line.7 の数値を変更
 
 ```c++
-numImages = 3; // 画像数
+numImg = 3; // 画像数
 ```
 
 ### 透明度変化幅変更

@@ -1,8 +1,9 @@
 #version 150
 
 uniform int numSplit;            // 分割数
-uniform int numImages;           // 画像数
-uniform vec2 texSize;            // 画像サイズ
+uniform int numImg;              // 画像数
+uniform int imgCol;              // テスクチャの列数
+uniform vec2 imgSize;            // 画像サイズ
 uniform vec2 winSize;            // ウィンドウサイズ
 uniform sampler2DRect joinedTex; // 全ての画像を結合したテクスチャ
 uniform sampler2DRect splitTex;  // 分割領域のデータテクスチャ R:現在の画像ID G:次の画像ID B:透明度
@@ -24,13 +25,15 @@ void main()
     vec4 splitData = texture(splitTex, vec2(splitIndex, 0));
 
     // テクスチャの座標取得
-    vec2 coord = texCoord * texSize / winSize;
+    vec2 coord = texCoord * imgSize / winSize;
 
     // 現在の画像
-    vec4 currentTex = texture(joinedTex, vec2(coord.x + floor(splitData.r * numImages) * texSize.x, coord.y));
+    int currentImgId = int(splitData.r * numImg);
+    vec4 currentImg = texture(joinedTex, vec2(coord.x + imgSize.x * (currentImgId % imgCol), coord.y + imgSize.y * (currentImgId / imgCol)));
     
     // 次の画像
-    vec4 nextTex = texture(joinedTex, vec2(coord.x + floor(splitData.g * numImages) * texSize.x, coord.y));
+    int nextImgId = int(splitData.g * numImg);
+    vec4 nextImg = texture(joinedTex, vec2(coord.x + imgSize.x * (nextImgId % imgCol), coord.y + imgSize.y * (nextImgId / imgCol)));
 
-	outputColor = mix(currentTex, nextTex, splitData.b);
+	outputColor = mix(currentImg, nextImg, splitData.b);
 }

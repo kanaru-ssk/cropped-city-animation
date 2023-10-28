@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 
+#define MAX_TEX_RES 16384
+
 struct pingPongBuffer
 {
 public:
@@ -56,20 +58,21 @@ public:
 	void windowResized(int w, int h);
 
 private:
-	void init();						 // 初期化関数 setup,mousePressed,windowResized で呼び出す
-	int mode;								 // 実行モード ANIMATION_MODE / EXPORT_IMAGE_MODE
-	int numImages;					 // 画像数
-	int numSplit;						 // 分割数
-	int winW, winH;					 // ウィンドウサイズ
-	int texW, texH;					 // テクスチャサイズ
-	ofDirectory imagesDir;	 // imagesディレクトリ
-	vector<ofImage> images;	 // 画像
-	ofFbo joinedFbo;				 // 全ての画像を結合した画像
-	ofImage emptyImage;			 // 空画像
-	ofShader renderShader;	 // 描画シェーダー
-	ofShader splitShader;		 // 分割領域のデータ更新シェーダー
-	pingPongBuffer splitTex; // 分割領域のデータテクスチャ R:現在の画像ID G:次の画像ID B:透明度
-	ofTexture dOpacityTex;	 // 透明度の変化幅
-	float minDOpacity;			 // 透明度の変化幅の最小値
-	float maxDOpacity;			 // 透明度の変化幅の最大値
+	void init();								// 初期化関数 setup,mousePressed,windowResized で呼び出す
+	int numSplit;								// 分割数
+	int winW, winH;							// ウィンドウサイズ
+	ofDirectory imagesDir;			// bin/data/imagesディレクトリ
+	vector<ofImage> images;			// bin/data/images内の画像
+	int imgW, imgH;							// 画像サイズ
+	int numImg;									// 画像数
+	ofFbo joinedFbo;						// 結合画像 (全ての画像を結合した画像)
+	int joinedTexW, joinedTexH; // 結合画像サイズ
+	int imgCol, imgRow;					// テスクチャの列数,行数
+	ofImage emptyImage;					// 空画像
+	ofShader renderShader;			// 描画シェーダー
+	ofShader splitShader;				// 分割領域のデータ更新シェーダー
+	pingPongBuffer splitTex;		// 分割領域のデータテクスチャ R:現在の画像ID G:次の画像ID B:透明度
+	ofTexture dOpacityTex;			// 透明度の変化幅
+	float minDOpacity;					// 透明度の変化幅の最小値
+	float maxDOpacity;					// 透明度の変化幅の最大値
 };

@@ -40,7 +40,7 @@ maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
 ### 分割方法変更
 
-`bin/data/shader/render.frag` line.18-21 のコメントアウトされたコードに変更
+`bin/data/shader/render.frag` line.19-22 のコメントアウトされたコードに変更
 
 ```glsl
 // float splitIndex = gl_FragCoord.xy / winSize.xy * numSplit; // 縦分割

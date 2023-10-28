@@ -4,7 +4,7 @@
 void ofApp::setup()
 {
     numSplit = 1024;    // 分割数
-    numImg = 11;        // 画像数
+    numImg = 10;        // 画像数
     minDOpacity = 0.01; // 透明度の変化幅の最小値
     maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
@@ -43,6 +43,13 @@ void ofApp::init()
     imgRow = ceil(numImg / float(imgCol));
     joinedTexW = imgW * imgCol;
     joinedTexH = imgH * imgRow;
+    // 結合画像サイズが制限を超える場合は画像数を減らす
+    if (MAX_TEX_RES < joinedTexH)
+    {
+        imgRow = floor(MAX_TEX_RES / imgH);
+        joinedTexH = imgH * imgRow;
+        numImg = imgCol * imgRow;
+    }
 
     // 画像を一つの画像に結合
     joinedFbo.allocate(joinedTexW, joinedTexH, GL_RGB);

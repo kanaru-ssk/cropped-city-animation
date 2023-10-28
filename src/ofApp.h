@@ -1,7 +1,5 @@
 #pragma once
 
-#define WEBCAM
-
 #include "ofMain.h"
 
 struct pingPongBuffer
@@ -59,6 +57,7 @@ public:
 
 private:
 	void init();						 // 初期化関数 setup,mousePressed,windowResized で呼び出す
+	int mode;								 // 実行モード ANIMATION_MODE / EXPORT_IMAGE_MODE
 	int numImages;					 // 画像数
 	int numSplit;						 // 分割数
 	int winW, winH;					 // ウィンドウサイズ

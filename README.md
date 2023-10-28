@@ -43,8 +43,8 @@ maxDOpacity = 0.03; // 透明度の変化幅の最大値
 `bin/data/shader/render.frag` line.19-22 のコメントアウトされたコードに変更
 
 ```glsl
-// float splitIndex = gl_FragCoord.xy / winSize.xy * numSplit; // 縦分割
-// float splitIndex = gl_FragCoord.xy / winSize.xy * numSplit; //横分割
-// float splitIndex = distance(vec2(0.5), gl_FragCoord.xy / winSize.xy) * numSplit;  // 楕円分割
-float splitIndex = distance(winSize / 2, gl_FragCoord.xy) * 2 / length(winSize) * numSplit; // 円分割
+// float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
+// float splitIndex = numSplit * texCoord.y / winSize.y; //横分割
+// float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
+float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
 ```

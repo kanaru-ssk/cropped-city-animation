@@ -59,6 +59,7 @@ public:
 
 private:
 	void init();								// 初期化関数 setup,mousePressed,windowResized で呼び出す
+	int sqrtNumSplit;						// 分割数の正の平方根
 	int numSplit;								// 分割数
 	int winW, winH;							// ウィンドウサイズ
 	ofDirectory imagesDir;			// bin/data/imagesディレクトリ

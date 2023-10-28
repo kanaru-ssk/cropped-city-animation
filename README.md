@@ -18,20 +18,21 @@
 `src/ofApp.cpp` line.6 の数値を変更
 
 ```c++
-numSplit = 1024; // 分割数
+sqrtNumSplit = 32;               // 分割数の正の平方根
+numSplit = pow(sqrtNumSplit, 2); // 分割数
 ```
 
 ### 画像数変更
 
-`src/ofApp.cpp` line.7 の数値を変更
+`src/ofApp.cpp` line.8 の数値を変更
 
 ```c++
-numImg = 3; // 画像数
+numImg = 10; // 画像数
 ```
 
 ### 透明度変化幅変更
 
-`src/ofApp.cpp` line.8-9 の数値を変更
+`src/ofApp.cpp` line.9-10 の数値を変更
 
 ```c++
 minDOpacity = 0.01; // 透明度の変化幅の最小値
@@ -40,7 +41,7 @@ maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
 ### 分割方法変更
 
-`bin/data/shader/render.frag` line.19-22 のコメントアウトされたコードに変更
+`bin/data/shader/render.frag` line.20-23 のコメントアウトされたコードに変更
 
 ```glsl
 // float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割

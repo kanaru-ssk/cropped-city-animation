@@ -1,5 +1,6 @@
 #version 150
 
+uniform int sqrtNumSplit;        // 分割数の正の平方根
 uniform int numSplit;            // 分割数
 uniform int numImg;              // 画像数
 uniform int imgCol;              // テスクチャの列数
@@ -22,7 +23,7 @@ void main()
     float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
 
     // 分割領域のデータ取得
-    vec4 splitData = texture(splitTex, vec2(splitIndex, 0));
+    vec4 splitData = texture(splitTex, vec2(int(splitIndex) % sqrtNumSplit, splitIndex / sqrtNumSplit));
 
     // テクスチャの座標取得
     vec2 coord = texCoord * imgSize / winSize;

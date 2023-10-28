@@ -3,10 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    numSplit = 1024;    // 分割数
-    numImg = 10;        // 画像数
-    minDOpacity = 0.01; // 透明度の変化幅の最小値
-    maxDOpacity = 0.03; // 透明度の変化幅の最大値
+    sqrtNumSplit = 32;               // 分割数の正の平方根
+    numSplit = pow(sqrtNumSplit, 2); // 分割数
+    numImg = 10;                     // 画像数
+    minDOpacity = 0.01;              // 透明度の変化幅の最小値
+    maxDOpacity = 0.03;              // 透明度の変化幅の最大値
 
     // bin/data/images/ フォルダ内のjpg画像を取得
     imagesDir.listDir("images");
@@ -71,6 +72,7 @@ void ofApp::init()
     // 描画シェーダーにデータを送信
     renderShader.load("shader/passthru.vert", "shader/render.frag");
     renderShader.begin();
+    renderShader.setUniform1i("sqrtNumSplit", sqrtNumSplit);
     renderShader.setUniform1i("numSplit", numSplit);
     renderShader.setUniform1i("numImg", numImg);
     renderShader.setUniform1i("imgCol", imgCol);
@@ -89,10 +91,10 @@ void ofApp::init()
         splitData[i * 3 + 2] = 1.0f;                          // 透明度
         dOpacityData[i] = ofRandom(minDOpacity, maxDOpacity); // 透明度の変化幅
     }
-    splitTex.allocate(numSplit, 1, GL_RGB);
-    splitTex.src->getTexture().loadData(splitData.data(), numSplit, 1, GL_RGB);
-    splitTex.dst->getTexture().loadData(splitData.data(), numSplit, 1, GL_RGB);
-    dOpacityTex.loadData(dOpacityData.data(), numSplit, 1, GL_RED);
+    splitTex.allocate(sqrtNumSplit, sqrtNumSplit, GL_RGB);
+    splitTex.src->getTexture().loadData(splitData.data(), sqrtNumSplit, sqrtNumSplit, GL_RGB);
+    splitTex.dst->getTexture().loadData(splitData.data(), sqrtNumSplit, sqrtNumSplit, GL_RGB);
+    dOpacityTex.loadData(dOpacityData.data(), sqrtNumSplit, sqrtNumSplit, GL_RED);
 
     // 分割領域のデータ更新シェーダーにデータ送信
     splitShader.load("shader/passthru.vert", "shader/update.frag");

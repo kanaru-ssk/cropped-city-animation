@@ -15,10 +15,10 @@ out vec4 outputColor;
 void main()
 {
     // 分割インデックスを取得
-    // float splitIndex = gl_FragCoord.xy / winSize.xy * numSplit; // 縦分割
-    // float splitIndex = gl_FragCoord.xy / winSize.xy * numSplit; //横分割
+    // float splitIndex = gl_FragCoord.x / winSize.x * numSplit; // 縦分割
+    // float splitIndex = gl_FragCoord.y / winSize.y * numSplit; //横分割
     // float splitIndex = distance(vec2(0.5), gl_FragCoord.xy / winSize.xy) * numSplit;  // 楕円分割
-    float splitIndex = distance(winSize / 2, gl_FragCoord.xy) * 2 / length(winSize) * numSplit; // 円分割
+    float splitIndex = distance(0.5 * winSize, gl_FragCoord.xy) * 2 / length(winSize) * numSplit; // 円分割
 
     // 分割領域のデータ取得
     vec4 splitData = texture(splitTex, vec2(splitIndex, 0));

@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-void ofApp::init()
+void ofApp::initShader()
 {
   // ウィンドウサイズを取得
   winW = ofGetWindowWidth();

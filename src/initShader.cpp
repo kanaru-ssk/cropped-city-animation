@@ -9,8 +9,8 @@ void ofApp::initShader()
   // 結合画像内の画像の行数,列数を計算
   int imgCol = numImg * winW < maxNumSplit ? numImg : floor(maxNumSplit / winW);
   int imgRow = ceil(numImg / float(imgCol));
-  joinedTexW = winW * imgCol;
-  joinedTexH = winH * imgRow;
+  int joinedTexW = winW * imgCol;
+  int joinedTexH = winH * imgRow;
   // 結合画像サイズが制限を超える場合は画像数を減らす
   if (maxNumSplit < joinedTexH)
   {

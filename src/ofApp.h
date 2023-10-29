@@ -33,16 +33,15 @@ private:
 	const int maxNumSplit = 16384 * 16384;						// 最大分割数
 	const int numSplit = sqrtNumSplit * sqrtNumSplit; // 分割数
 
-	void loadImg();		// imagesフォルダの画像をロード
-	void initShader();			// 初期化関数 setup,mousePressed,windowResized で呼び出す
-	void exportImg(); // 画像書き出し関数
-	int winW, winH;		// ウィンドウサイズ
+	void loadImg();		 // imagesフォルダの画像をロード
+	void initShader(); // 初期化関数 setup,mousePressed,windowResized で呼び出す
+	void exportImg();	 // 画像書き出し関数
+	int winW, winH;		 // ウィンドウサイズ
 
 	// 入力画像
 	vector<ofImage> images;			// bin/data/images内の画像
 	int numImg;									// 画像数
 	ofFbo joinedFbo;						// 結合画像 (全ての画像を結合した画像)
-	int joinedTexW, joinedTexH; // 結合画像サイズ
 
 	// 更新用
 	ofShader splitShader;		 // 分割領域のデータ更新シェーダー

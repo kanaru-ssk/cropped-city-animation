@@ -6,19 +6,16 @@ void ofApp::initShader()
   winW = ofGetWindowWidth();
   winH = ofGetWindowHeight();
 
-  int imgW = winW;
-  int imgH = winH;
-
   // 結合画像内の画像の行数,列数を計算
-  int imgCol = numImg * imgW < maxNumSplit ? numImg : floor(maxNumSplit / imgW);
+  int imgCol = numImg * winW < maxNumSplit ? numImg : floor(maxNumSplit / winW);
   int imgRow = ceil(numImg / float(imgCol));
-  joinedTexW = imgW * imgCol;
-  joinedTexH = imgH * imgRow;
+  joinedTexW = winW * imgCol;
+  joinedTexH = winH * imgRow;
   // 結合画像サイズが制限を超える場合は画像数を減らす
   if (maxNumSplit < joinedTexH)
   {
-    imgRow = floor(maxNumSplit / imgH);
-    joinedTexH = imgH * imgRow;
+    imgRow = floor(maxNumSplit / winH);
+    joinedTexH = winH * imgRow;
     numImg = imgCol * imgRow;
   }
   cout << "画像数 : " + ofToString(numImg) << endl;
@@ -32,7 +29,7 @@ void ofApp::initShader()
     {
       int index = y * imgCol + x;
       if (index < numImg)
-        images[index].draw(x * imgW, y * imgH, imgW, imgH);
+        images[index].draw(x * winW, y * winH, winW, winH);
     }
   }
   joinedFbo.end();
@@ -47,7 +44,6 @@ void ofApp::initShader()
   renderShader.setUniform1i("numSplit", numSplit);
   renderShader.setUniform1i("numImg", numImg);
   renderShader.setUniform1i("imgCol", imgCol);
-  renderShader.setUniform2f("imgSize", imgW, imgH);
   renderShader.setUniform2f("winSize", winW, winH);
   renderShader.setUniformTexture("joinedTex", joinedFbo.getTexture(), 1);
   renderShader.end();

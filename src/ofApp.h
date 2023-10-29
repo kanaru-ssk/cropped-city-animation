@@ -38,7 +38,6 @@ private:
 	int numImg;									// 画像数
 	ofFbo joinedFbo;						// 結合画像 (全ての画像を結合した画像)
 	int joinedTexW, joinedTexH; // 結合画像サイズ
-	int imgCol, imgRow;					// テスクチャの列数,行数
 	ofImage emptyImage;					// 空画像
 	ofShader renderShader;			// 描画シェーダー
 	ofShader splitShader;				// 分割領域のデータ更新シェーダー

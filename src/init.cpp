@@ -10,8 +10,8 @@ void ofApp::init()
   imgH = winH;
 
   // 結合画像内の画像の行数,列数を計算
-  imgCol = numImg * imgW < MAX_TEX_RES ? numImg : floor(MAX_TEX_RES / imgW);
-  imgRow = ceil(numImg / float(imgCol));
+  int imgCol = numImg * imgW < MAX_TEX_RES ? numImg : floor(MAX_TEX_RES / imgW);
+  int imgRow = ceil(numImg / float(imgCol));
   joinedTexW = imgW * imgCol;
   joinedTexH = imgH * imgRow;
   // 結合画像サイズが制限を超える場合は画像数を減らす

@@ -24,23 +24,22 @@ public:
 
 private:
 	// 設定値
-	const int sqrtNumSplit = 32;    // 分割数の正の平方根
-	const int maxNumImg = 100;	    // 最大画像数
-	const float minDOpacity = 0.01;	// 透明度の変化幅の最小値
-	const float maxDOpacity = 0.03;	// 透明度の変化幅の最大値
+	const int sqrtNumSplit = 32;		// 分割数の正の平方根
+	const int maxNumImg = 100;			// 最大画像数
+	const float minDOpacity = 0.01; // 透明度の変化幅の最小値
+	const float maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
 	// 定数
-	const int maxNumSplit = 16384 * 16384; 						// 最大分割数
+	const int maxNumSplit = 16384 * 16384;						// 最大分割数
 	const int numSplit = sqrtNumSplit * sqrtNumSplit; // 分割数
 
-	void loadImg();   // imagesフォルダの画像をロード
-	void init();      // 初期化関数 setup,mousePressed,windowResized で呼び出す
-	void exportImg();	// 画像書き出し関数
+	void loadImg();		// imagesフォルダの画像をロード
+	void init();			// 初期化関数 setup,mousePressed,windowResized で呼び出す
+	void exportImg(); // 画像書き出し関数
 	int winW, winH;		// ウィンドウサイズ
 
 	// 入力画像
 	vector<ofImage> images;			// bin/data/images内の画像
-	int imgW, imgH;							// 画像サイズ
 	int numImg;									// 画像数
 	ofFbo joinedFbo;						// 結合画像 (全ての画像を結合した画像)
 	int joinedTexW, joinedTexH; // 結合画像サイズ
@@ -52,5 +51,5 @@ private:
 
 	// 描画用
 	ofShader renderShader; // 描画シェーダー
-	ofImage emptyImage;	   // 空画像
+	ofImage emptyImage;		 // 空画像
 };

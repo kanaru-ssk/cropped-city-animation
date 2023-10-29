@@ -6,8 +6,8 @@ void ofApp::init()
   winW = ofGetWindowWidth();
   winH = ofGetWindowHeight();
 
-  imgW = winW;
-  imgH = winH;
+  int imgW = winW;
+  int imgH = winH;
 
   // 結合画像内の画像の行数,列数を計算
   int imgCol = numImg * imgW < maxNumSplit ? numImg : floor(maxNumSplit / imgW);

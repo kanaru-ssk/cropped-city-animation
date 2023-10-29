@@ -65,6 +65,8 @@ void ofApp::init()
   splitTex.allocate(sqrtNumSplit, sqrtNumSplit, GL_RGB);
   splitTex.src->getTexture().loadData(splitData.data(), sqrtNumSplit, sqrtNumSplit, GL_RGB);
   splitTex.dst->getTexture().loadData(splitData.data(), sqrtNumSplit, sqrtNumSplit, GL_RGB);
+
+  ofTexture dOpacityTex; // 透明度の変化幅
   dOpacityTex.loadData(dOpacityData.data(), sqrtNumSplit, sqrtNumSplit, GL_RED);
 
   // 分割領域のデータ更新シェーダーにデータ送信

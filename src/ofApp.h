@@ -42,7 +42,7 @@ private:
 	ofShader renderShader;			// 描画シェーダー
 	ofShader splitShader;				// 分割領域のデータ更新シェーダー
 	pingPongBuffer splitTex;		// 分割領域のデータテクスチャ R:現在の画像ID G:次の画像ID B:透明度
-	ofTexture dOpacityTex;			// 透明度の変化幅
-	float minDOpacity;					// 透明度の変化幅の最小値
-	float maxDOpacity;					// 透明度の変化幅の最大値
+
+	float minDOpacity; // 透明度の変化幅の最小値
+	float maxDOpacity; // 透明度の変化幅の最大値
 };

@@ -1,6 +1,6 @@
 # Split City
 
-![デモGIF](/demo/split-city.gif)
+![デモGIF](/bin/data/demo.jpg)
 
 ## 使用方法
 
@@ -15,37 +15,42 @@
 
 ### 分割数変更
 
-`src/ofApp.cpp` line.6 の数値を変更
+`src/ofApp.h` line.27 の数値を変更
 
 ```c++
-sqrtNumSplit = 32;               // 分割数の正の平方根
-numSplit = pow(sqrtNumSplit, 2); // 分割数
+const int sqrtNumSplit = 256; // 分割数の正の平方根
+```
+
+分割数はsqrtNumSplitの2乗の値になる
+
+```c++
+const int numSplit = sqrtNumSplit * sqrtNumSplit; // 分割数
 ```
 
 ### 画像数変更
 
-`src/ofApp.cpp` line.8 の数値を変更
+`src/ofApp.h` line.28 の数値を変更
 
 ```c++
-numImg = 10; // 画像数
+const int maxNumImg = 100; // 最大画像数
 ```
 
 ### 透明度変化幅変更
 
-`src/ofApp.cpp` line.9-10 の数値を変更
+`src/ofApp.h` line.29-30 の数値を変更
 
 ```c++
-minDOpacity = 0.01; // 透明度の変化幅の最小値
-maxDOpacity = 0.03; // 透明度の変化幅の最大値
+const float minDOpacity = 0.01; // 透明度の変化幅の最小値
+const float maxDOpacity = 0.03; // 透明度の変化幅の最大値
 ```
 
 ### 分割方法変更
 
-`bin/data/shader/render.frag` line.20-23 のコメントアウトされたコードに変更
+`bin/data/shader/render.frag` line.19-22 のコメントアウトされたコードに変更
 
 ```glsl
 // float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
-// float splitIndex = numSplit * texCoord.y / winSize.y; //横分割
+// float splitIndex = numSplit * texCoord.y / winSize.y; // 横分割
 // float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
 float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
 ```

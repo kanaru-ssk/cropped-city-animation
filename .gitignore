@@ -1,9 +1,8 @@
 .vscode
 .DS_Store
 
-bin
-!/bin/data/
-/bin/data/outImg
+bin/split-city_debug.app
+bin/data/outImg
 
 [Bb]uild/
 [Oo]bj/

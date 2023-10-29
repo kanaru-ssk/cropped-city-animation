@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#define MAX_TEX_RES 16384
+#define MAX_TEX_RES 16384 * 16384
 
 struct pingPongBuffer
 {
@@ -54,15 +54,27 @@ public:
 	void update();
 	void draw();
 
+	void keyPressed(int key);
+	void keyReleased(int key);
+	void mouseMoved(int x, int y);
+	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
+	void mouseReleased(int x, int y, int button);
+	void mouseEntered(int x, int y);
+	void mouseExited(int x, int y);
 	void windowResized(int w, int h);
+	void dragEvent(ofDragInfo dragInfo);
+	void gotMessage(ofMessage msg);
 
 private:
-	void init();								// 初期化関数 setup,mousePressed,windowResized で呼び出す
+	void init(); // 初期化関数 setup,mousePressed,windowResized で呼び出す
+
+	bool exportImgFlag; // 画像書き出しフラグ
+	void exportImg();		// 画像書き出し関数
+
 	int sqrtNumSplit;						// 分割数の正の平方根
 	int numSplit;								// 分割数
 	int winW, winH;							// ウィンドウサイズ
-	ofDirectory imagesDir;			// bin/data/imagesディレクトリ
 	vector<ofImage> images;			// bin/data/images内の画像
 	int imgW, imgH;							// 画像サイズ
 	int numImg;									// 画像数

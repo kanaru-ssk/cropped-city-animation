@@ -10,24 +10,7 @@ void ofApp::setup()
         std::exit(0);
     }
 
-    // bin/data/images/ フォルダ内のjpg画像を取得
-    ofDirectory imagesDir;
-    imagesDir.listDir("images");
-    imagesDir.allowExt("jpg");
-
-    numImg = imagesDir.size();
-
-    if (maxNumImg < numImg) {
-        numImg = maxNumImg;
-    }
-
-    // 画像ロード
-    images.assign(numImg, ofImage());
-    for (int i = 0; i < numImg; i++)
-    {
-        images[i].load(imagesDir.getPath(i));
-    }
-
+    loadImg();
     init();
 }
 

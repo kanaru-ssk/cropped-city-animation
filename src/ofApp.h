@@ -33,6 +33,7 @@ private:
 	const int maxNumSplit = 16384 * 16384; 						// 最大分割数
 	const int numSplit = sqrtNumSplit * sqrtNumSplit; // 分割数
 
+	void loadImg();   // imagesフォルダの画像をロード
 	void init();      // 初期化関数 setup,mousePressed,windowResized で呼び出す
 	void exportImg();	// 画像書き出し関数
 	int winW, winH;		// ウィンドウサイズ

@@ -31,7 +31,7 @@ void main()
   // 3. 次の画像をランダムに変更
   splitData.b += isSwitch;
   splitData.g = splitData.r * isSwitch + splitData.g * isNotSwitch;
-  splitData.r = fract(elapsedTime * splitData.r) * isSwitch + splitData.r * isNotSwitch;
+  splitData.r = fract(elapsedTime / dOpacityData) * isSwitch + splitData.r * isNotSwitch;
 
   outputColor = splitData;
 }

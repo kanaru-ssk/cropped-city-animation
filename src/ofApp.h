@@ -39,9 +39,9 @@ private:
 	int winW, winH;		 // ウィンドウサイズ
 
 	// 入力画像
-	vector<ofImage> images;			// bin/data/images内の画像
-	int numImg;									// 画像数
-	ofFbo joinedFbo;						// 結合画像 (全ての画像を結合した画像)
+	vector<ofImage> images; // bin/data/images内の画像
+	int numImg;							// 画像数
+	ofFbo joinedFbo;				// 結合画像 (全ての画像を結合した画像)
 
 	// 更新用
 	ofShader splitShader;		 // 分割領域のデータ更新シェーダー

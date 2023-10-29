@@ -17,7 +17,7 @@ void main()
 {
     // 分割インデックスを取得
     // float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
-    // float splitIndex = numSplit * texCoord.y / winSize.y; //横分割
+    // float splitIndex = numSplit * texCoord.y / winSize.y; // 横分割
     // float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
     float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
 

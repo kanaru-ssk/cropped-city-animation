@@ -51,9 +51,6 @@ void ofApp::update()
     splitTex.dst->end();
 
     splitTex.swap();
-
-    if (exportImgFlag)
-        exportImg();
 }
 
 //--------------------------------------------------------------
@@ -70,7 +67,7 @@ void ofApp::draw()
 void ofApp::keyPressed(int key)
 {
     if (key == 's')
-        exportImgFlag = true;
+        exportImg();
 }
 
 //--------------------------------------------------------------

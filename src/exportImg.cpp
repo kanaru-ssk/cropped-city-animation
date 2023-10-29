@@ -19,6 +19,4 @@ void ofApp::exportImg()
   ofSaveScreen(folderName + "/" + fileName);
 
   cout << "スクリーンショット : " + fileName << endl;
-
-  exportImgFlag = false;
 }

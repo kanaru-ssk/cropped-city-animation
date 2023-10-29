@@ -26,8 +26,6 @@ public:
 
 private:
 	void init(); // 初期化関数 setup,mousePressed,windowResized で呼び出す
-
-	bool exportImgFlag; // 画像書き出しフラグ
 	void exportImg();		// 画像書き出し関数
 
 	int sqrtNumSplit;						// 分割数の正の平方根

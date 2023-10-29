@@ -8,6 +8,7 @@ void ofApp::setup()
     numImg = 10;                     // 画像数
     minDOpacity = 0.01;              // 透明度の変化幅の最小値
     maxDOpacity = 0.03;              // 透明度の変化幅の最大値
+    cout << "分割数 : " + ofToString(numSplit) << endl;
 
     // bin/data/images/ フォルダ内のjpg画像を取得
     imagesDir.listDir("images");
@@ -26,6 +27,46 @@ void ofApp::setup()
         images[i].load(imagesDir.getPath(i));
     }
 
+    init();
+}
+
+//--------------------------------------------------------------
+void ofApp::update()
+{
+    splitTex.dst->begin();
+    ofClear(0);
+    splitShader.begin();
+
+    splitShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+    splitShader.setUniformTexture("preSplitTex", splitTex.src->getTexture(), 3);
+    splitTex.src->draw(0, 0);
+
+    splitShader.end();
+    splitTex.dst->end();
+
+    splitTex.swap();
+}
+
+//--------------------------------------------------------------
+void ofApp::draw()
+{
+    // 空画像上に描画シェーダーのテクスチャを描画
+    renderShader.begin();
+    ofClear(0);
+    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
+    emptyImage.draw(0, 0, winW, winH);
+    renderShader.end();
+}
+
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button)
+{
+    init();
+}
+
+//--------------------------------------------------------------
+void ofApp::windowResized(int w, int h)
+{
     init();
 }
 
@@ -51,6 +92,7 @@ void ofApp::init()
         joinedTexH = imgH * imgRow;
         numImg = imgCol * imgRow;
     }
+    cout << "画像数 : " + ofToString(numImg) << endl;
 
     // 画像を一つの画像に結合
     joinedFbo.allocate(joinedTexW, joinedTexH, GL_RGB);
@@ -101,44 +143,4 @@ void ofApp::init()
     splitShader.begin();
     splitShader.setUniformTexture("dOpacityTex", dOpacityTex, 4);
     splitShader.end();
-}
-
-//--------------------------------------------------------------
-void ofApp::update()
-{
-    splitTex.dst->begin();
-    ofClear(0);
-    splitShader.begin();
-
-    splitShader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-    splitShader.setUniformTexture("preSplitTex", splitTex.src->getTexture(), 3);
-    splitTex.src->draw(0, 0);
-
-    splitShader.end();
-    splitTex.dst->end();
-
-    splitTex.swap();
-}
-
-//--------------------------------------------------------------
-void ofApp::draw()
-{
-    // 空画像上に描画シェーダーのテクスチャを描画
-    renderShader.begin();
-    ofClear(0);
-    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
-    emptyImage.draw(0, 0, winW, winH);
-    renderShader.end();
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button)
-{
-    init();
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h)
-{
-    init();
 }

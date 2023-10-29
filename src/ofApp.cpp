@@ -106,8 +106,6 @@ void ofApp::init()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-    //----------------------------------------------------------
-    // 分割領域のデータ更新
     splitTex.dst->begin();
     ofClear(0);
     splitShader.begin();
@@ -120,13 +118,6 @@ void ofApp::update()
     splitTex.dst->end();
 
     splitTex.swap();
-
-    //----------------------------------------------------------
-    // 描画シェーダーにデータを送信
-    renderShader.begin();
-    ofClear(0);
-    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
-    renderShader.end();
 }
 
 //--------------------------------------------------------------
@@ -134,6 +125,8 @@ void ofApp::draw()
 {
     // 空画像上に描画シェーダーのテクスチャを描画
     renderShader.begin();
+    ofClear(0);
+    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
     emptyImage.draw(0, 0, winW, winH);
     renderShader.end();
 }

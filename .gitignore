@@ -3,6 +3,7 @@
 
 bin
 !/bin/data/
+/bin/data/outImg
 
 [Bb]uild/
 [Oo]bj/

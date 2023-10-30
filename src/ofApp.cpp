@@ -13,7 +13,7 @@ void ofApp::setup()
     loadImg();
     cout << "画像数 : " + ofToString(numImg) << endl;
 
-    initShader();
+    initApp();
 }
 
 //--------------------------------------------------------------
@@ -69,7 +69,7 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-    initShader();
+    initApp();
 }
 
 //--------------------------------------------------------------
@@ -90,7 +90,7 @@ void ofApp::mouseExited(int x, int y)
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h)
 {
-    initShader();
+    initApp();
 }
 
 //--------------------------------------------------------------

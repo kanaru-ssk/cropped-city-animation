@@ -12,7 +12,7 @@ void ofApp::initShader()
   int joinedTexW = winW * imgCol;
   int joinedTexH = winH * imgRow;
   // 結合画像サイズが制限を超える場合は画像数を減らす
-  if (maxNumSplit < joinedTexH)
+  if (joinedTexH > maxNumSplit)
   {
     imgRow = floor(maxNumSplit / winH);
     joinedTexH = winH * imgRow;

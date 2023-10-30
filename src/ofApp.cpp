@@ -9,8 +9,10 @@ void ofApp::setup()
         cout << "分割数は1 ~ " + ofToString(maxNumSplit) + "で設定して下さい。" << endl;
         std::exit(0);
     }
-
+    
     loadImg();
+    cout << "画像数 : " + ofToString(numImg) << endl;
+
     initShader();
 }
 

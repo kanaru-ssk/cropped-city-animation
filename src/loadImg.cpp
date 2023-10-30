@@ -13,6 +13,7 @@ void ofApp::loadImg()
   if (maxNumImg < numImg)
   {
     numImg = maxNumImg;
+    cout << "画像数変更 : " + ofToString(numImg) << endl;
   }
 
   // 画像ロード

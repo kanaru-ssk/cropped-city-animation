@@ -17,8 +17,8 @@ void ofApp::initShader()
     imgRow = floor(maxNumSplit / winH);
     joinedTexH = winH * imgRow;
     numImg = imgCol * imgRow;
+    cout << "画像数変更 : " + ofToString(numImg) << endl;
   }
-  cout << "画像数 : " + ofToString(numImg) << endl;
 
   // 画像を一つの画像に結合
   joinedFbo.allocate(joinedTexW, joinedTexH, GL_RGB);

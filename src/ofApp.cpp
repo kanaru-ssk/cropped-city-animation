@@ -4,17 +4,20 @@
 void ofApp::setup()
 {
     cout << "分割数 : " + ofToString(numSplit) << endl;
-    if (numSplit < 1 || maxNumSplit < numSplit)
+    if (numSplit < 1 || numSplit > maxNumSplit)
     {
         cout << "分割数は1 ~ " + ofToString(maxNumSplit) + "で設定して下さい。" << endl;
         std::exit(0);
     }
 
     loadImg();
-    initShader();
+    cout << "画像数 : " + ofToString(numImg) << endl;
+
+    initApp();
 }
 
 //--------------------------------------------------------------
+// データ更新処理 シェーダー側のコードは bin/data/shader/update.frag
 void ofApp::update()
 {
     splitTex.dst->begin();
@@ -31,13 +34,14 @@ void ofApp::update()
 }
 
 //--------------------------------------------------------------
+// 描画処理 シェーダー側のコードは bin/data/shader/draw.frag
 void ofApp::draw()
 {
     // 空画像上に描画シェーダーのテクスチャを描画
-    renderShader.begin();
-    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
+    drawShader.begin();
+    drawShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
     emptyImage.draw(0, 0, winW, winH);
-    renderShader.end();
+    drawShader.end();
 }
 
 //--------------------------------------------------------------
@@ -65,7 +69,7 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-    initShader();
+    initApp();
 }
 
 //--------------------------------------------------------------
@@ -86,7 +90,7 @@ void ofApp::mouseExited(int x, int y)
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h)
 {
-    initShader();
+    initApp();
 }
 
 //--------------------------------------------------------------

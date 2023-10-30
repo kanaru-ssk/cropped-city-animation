@@ -54,7 +54,7 @@ const float maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
 ### 分割方法変更
 
-`bin/data/shader/render.frag` line.19-22 のコメントアウトされたコードに変更
+`bin/data/shader/draw.frag` line.19-22 のコメントアウトされたコードに変更
 
 ```glsl
 // float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割

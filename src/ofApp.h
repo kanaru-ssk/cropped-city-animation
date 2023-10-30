@@ -49,6 +49,6 @@ private:
 	ofTexture dOpacityTex;	 // 透明度の変化幅
 
 	// 描画用
-	ofShader renderShader; // 描画シェーダー
-	ofImage emptyImage;		 // 空画像
+	ofShader drawShader; // 描画シェーダー
+	ofImage emptyImage;	 // 空画像
 };

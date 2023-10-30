@@ -15,6 +15,7 @@ void ofApp::setup()
 }
 
 //--------------------------------------------------------------
+// データ更新処理 シェーダー側のコードは bin/data/shader/update.frag
 void ofApp::update()
 {
     splitTex.dst->begin();
@@ -31,13 +32,14 @@ void ofApp::update()
 }
 
 //--------------------------------------------------------------
+// 描画処理 シェーダー側のコードは bin/data/shader/draw.frag
 void ofApp::draw()
 {
     // 空画像上に描画シェーダーのテクスチャを描画
-    renderShader.begin();
-    renderShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
+    drawShader.begin();
+    drawShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
     emptyImage.draw(0, 0, winW, winH);
-    renderShader.end();
+    drawShader.end();
 }
 
 //--------------------------------------------------------------

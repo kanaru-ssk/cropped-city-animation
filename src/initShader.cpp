@@ -38,15 +38,15 @@ void ofApp::initShader()
   emptyImage.allocate(winW, winH, OF_IMAGE_COLOR);
 
   // 描画シェーダーにデータを送信
-  renderShader.load("shader/passthru.vert", "shader/render.frag");
-  renderShader.begin();
-  renderShader.setUniform1i("sqrtNumSplit", sqrtNumSplit);
-  renderShader.setUniform1i("numSplit", numSplit);
-  renderShader.setUniform1i("numImg", numImg);
-  renderShader.setUniform1i("imgCol", imgCol);
-  renderShader.setUniform2f("winSize", winW, winH);
-  renderShader.setUniformTexture("joinedTex", joinedFbo.getTexture(), 1);
-  renderShader.end();
+  drawShader.load("shader/passthru.vert", "shader/draw.frag");
+  drawShader.begin();
+  drawShader.setUniform1i("sqrtNumSplit", sqrtNumSplit);
+  drawShader.setUniform1i("numSplit", numSplit);
+  drawShader.setUniform1i("numImg", numImg);
+  drawShader.setUniform1i("imgCol", imgCol);
+  drawShader.setUniform2f("winSize", winW, winH);
+  drawShader.setUniformTexture("joinedTex", joinedFbo.getTexture(), 1);
+  drawShader.end();
 
   // 分割領域のデータ作成
   vector<float> splitData(numSplit * 3);

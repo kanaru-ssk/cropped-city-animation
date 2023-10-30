@@ -15,25 +15,25 @@ out vec4 outputColor;
 // 描画
 void main()
 {
-    // 分割インデックスを取得
-    // float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
-    // float splitIndex = numSplit * texCoord.y / winSize.y; // 横分割
-    // float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
-    float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
+	// 分割インデックスを取得
+	// float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
+	// float splitIndex = numSplit * texCoord.y / winSize.y; // 横分割
+	// float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
+	float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
 
-    // 分割領域のデータ取得
-    vec4 splitData = texture(splitTex, vec2(int(splitIndex) % sqrtNumSplit, splitIndex / sqrtNumSplit));
+	// 分割領域のデータ取得
+	vec4 splitData = texture(splitTex, vec2(int(splitIndex) % sqrtNumSplit, splitIndex / sqrtNumSplit));
 
-    // テクスチャの座標取得
-    vec2 coord = texCoord * winSize / winSize;
+	// テクスチャの座標取得
+	vec2 coord = texCoord * winSize / winSize;
 
-    // 現在の画像
-    int currentImgId = int(splitData.r * numImg);
-    vec4 currentImg = texture(joinedTex, vec2(coord.x + winSize.x * (currentImgId % imgCol), coord.y + winSize.y * (currentImgId / imgCol)));
-    
-    // 次の画像
-    int nextImgId = int(splitData.g * numImg);
-    vec4 nextImg = texture(joinedTex, vec2(coord.x + winSize.x * (nextImgId % imgCol), coord.y + winSize.y * (nextImgId / imgCol)));
+	// 現在の画像
+	int currentImgId = int(splitData.r * numImg);
+	vec4 currentImg = texture(joinedTex, vec2(coord.x + winSize.x * (currentImgId % imgCol), coord.y + winSize.y * (currentImgId / imgCol)));
+	
+	// 次の画像
+	int nextImgId = int(splitData.g * numImg);
+	vec4 nextImg = texture(joinedTex, vec2(coord.x + winSize.x * (nextImgId % imgCol), coord.y + winSize.y * (nextImgId / imgCol)));
 
 	outputColor = mix(currentImg, nextImg, splitData.b);
 }

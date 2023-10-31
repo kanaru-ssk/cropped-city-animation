@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
 #include "pingPongBuffer.h"
 
 class ofApp : public ofBaseApp
@@ -24,14 +25,22 @@ public:
 
 private:
 	// 設定値
-	int sqrtNumSplit = 256;			// 分割数の正の平方根
-	int maxNumImg = 100;			// 最大画像数
+	int sqrtNumSplit = 256;		// 分割数の正の平方根
+	int numImg;								// 画像数
 	float minDOpacity = 0.01; // 透明度の変化幅の最小値
 	float maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
+	ofxPanel gui;
+	ofxIntSlider splitTypeSlider;
+	ofxIntSlider sqrtNumSplitSlider;
+	ofxIntSlider numImgSlider;
+	ofxFloatSlider minDOpacitySlider;
+	ofxFloatSlider maxDOpacitySlider;
+	bool isDisplayGui = true;
+
 	// 定数
-	const int maxNumSplit = 16384 * 16384;						// 最大分割数
-	const int numSplit = sqrtNumSplit * sqrtNumSplit; // 分割数
+	const int maxSqrtNumSplit = 16384; // 最大分割数
+	const int maxNumSplit = maxSqrtNumSplit * maxSqrtNumSplit;
 
 	void loadImg();					 // setupで呼び出す
 	void initApp();					 // setup,mousePressed,windowResized で呼び出す
@@ -41,7 +50,6 @@ private:
 
 	// 入力画像
 	vector<ofImage> images; // bin/data/images内の画像
-	int numImg;							// 画像数
 	ofFbo joinedFbo;				// 結合画像 (全ての画像を結合した画像)
 
 	// 更新用

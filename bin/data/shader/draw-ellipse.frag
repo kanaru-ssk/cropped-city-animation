@@ -12,14 +12,11 @@ in vec2 texCoord;
 
 out vec4 outputColor;
 
-// 描画
+// 描画 楕円分割
 void main()
 {
 	// 分割インデックスを取得
-	// float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
-	// float splitIndex = numSplit * texCoord.y / winSize.y; // 横分割
-	// float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
-	float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
+	float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);
 
 	// 分割領域のデータ取得
 	vec4 splitData = texture(splitTex, vec2(int(splitIndex) % sqrtNumSplit, splitIndex / sqrtNumSplit));

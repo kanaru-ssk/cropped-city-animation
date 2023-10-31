@@ -7,6 +7,11 @@ void ofApp::initApp()
   winW = ofGetWindowWidth();
   winH = ofGetWindowHeight();
 
+  sqrtNumSplit = sqrtNumSplitSlider;
+  numImg = numImgSlider;
+  minDOpacity = minDOpacitySlider;
+  maxDOpacity = maxDOpacitySlider;
+
   // 空画像のメモリ確保
   emptyImage.allocate(winW, winH, OF_IMAGE_COLOR);
 

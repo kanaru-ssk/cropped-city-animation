@@ -3,15 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-	cout << "分割数 : " + ofToString(numSplit) << endl;
-	if (numSplit < 1 || numSplit > maxNumSplit)
-	{
-		cout << "分割数は1 ~ " + ofToString(maxNumSplit) + "で設定して下さい。" << endl;
-		std::exit(0);
-	}
-
 	loadImg();
-	cout << "画像数 : " + ofToString(numImg) << endl;
+
+	gui.setup();
+	gui.add(splitTypeSlider.setup("splitType", 1, 1, 4));
+	gui.add(sqrtNumSplitSlider.setup("sqrtNumSplit", 4, 1, 256));
+	gui.add(numImgSlider.setup("numImg", numImg, 1, numImg));
+	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.03));
+	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.03, 0.5));
 
 	initApp();
 }
@@ -42,6 +41,9 @@ void ofApp::draw()
 	drawShader.setUniformTexture("splitTex", splitTex.src->getTexture(), 2);
 	emptyImage.draw(0, 0, winW, winH);
 	drawShader.end();
+
+	if (isDisplayGui)
+		gui.draw();
 }
 
 //--------------------------------------------------------------
@@ -49,6 +51,9 @@ void ofApp::keyPressed(int key)
 {
 	if (key == 's')
 		exportImg();
+
+	if (key == 'h')
+		isDisplayGui = !isDisplayGui;
 }
 
 //--------------------------------------------------------------

@@ -32,10 +32,25 @@ void ofApp::initDrawShader()
   joinedFbo.end();
 
   // draw.fragにデータを送信
-  drawShader.load("shader/passthru.vert", "shader/draw.frag");
+  if (splitTypeSlider == 1)
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-circle.frag");
+  }
+  else if (splitTypeSlider == 2)
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-ellipse.frag");
+  }
+  else if (splitTypeSlider == 3)
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-horizontal.frag");
+  }
+  else
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-vertical.frag");
+  }
   drawShader.begin();
   drawShader.setUniform1i("sqrtNumSplit", sqrtNumSplit);
-  drawShader.setUniform1i("numSplit", numSplit);
+  drawShader.setUniform1i("numSplit", sqrtNumSplit * sqrtNumSplit);
   drawShader.setUniform1i("numImg", numImg);
   drawShader.setUniform1i("imgCol", imgCol);
   drawShader.setUniform2f("winSize", winW, winH);

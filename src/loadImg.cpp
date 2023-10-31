@@ -9,13 +9,6 @@ void ofApp::loadImg()
 
   numImg = imagesDir.size();
 
-  // 最大画像数より多い場合は取得数を制限する
-  if (numImg > maxNumImg)
-  {
-    numImg = maxNumImg;
-    cout << "画像数変更 : " + ofToString(numImg) << endl;
-  }
-
   // 画像ロード
   images.assign(numImg, ofImage());
   for (int i = 0; i < numImg; i++)

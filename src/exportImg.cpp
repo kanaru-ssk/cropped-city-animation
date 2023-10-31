@@ -1,5 +1,6 @@
 #include "ofApp.h"
 
+// 一桁の数字に0を追加 1 -> 01
 string toPaddingString(int num)
 {
   string str = ofToString(num);
@@ -9,16 +10,15 @@ string toPaddingString(int num)
 void ofApp::exportImg()
 {
   string folderName = "outImg";
-  string timeStr = ofJoinString(
-      {toPaddingString(ofGetHours()),
-       toPaddingString(ofGetMinutes()),
-       toPaddingString(ofGetSeconds())},
-      "");
-  string dateStr = ofJoinString(
-      {ofToString(ofGetYear()),
-       toPaddingString(ofGetMonth()),
-       toPaddingString(ofGetDay())},
-      "");
+  string timeStr =
+      toPaddingString(ofGetHours()) +
+      toPaddingString(ofGetMinutes()) +
+      toPaddingString(ofGetSeconds());
+
+  string dateStr =
+      ofToString(ofGetYear()) +
+      toPaddingString(ofGetMonth()) +
+      toPaddingString(ofGetDay());
 
   // split-city_YYYYMMDD_HHMMSS.jpg
   string fileName = "split-city_" + dateStr + "_" + timeStr + ".jpg";

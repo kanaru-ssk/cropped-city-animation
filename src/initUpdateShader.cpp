@@ -4,6 +4,7 @@
 void ofApp::initUpdateShader()
 {
   // 分割領域のデータ作成
+  int numSplit = sqrtNumSplit * sqrtNumSplit;
   vector<float> splitData(numSplit * 3);
   vector<float> dOpacityData(numSplit);
   for (int i = 0; i < numSplit; i++)

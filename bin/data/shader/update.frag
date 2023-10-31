@@ -13,7 +13,7 @@ void main()
 {
   // splitData.r : 現在の画像ID
   // splitData.g : 次の画像ID
-  // splitData.g : 現在の画像の透明度
+  // splitData.b : 現在の画像の透明度
   vec4 splitData = texture(preSplitTex, texCoord);
   float dOpacityData = texture(dOpacityTex, texCoord).r; // 透明度の変化幅
 

@@ -24,10 +24,10 @@ public:
 
 private:
 	// 設定値
-	const int sqrtNumSplit = 256;		// 分割数の正の平方根
-	const int maxNumImg = 100;			// 最大画像数
-	const float minDOpacity = 0.01; // 透明度の変化幅の最小値
-	const float maxDOpacity = 0.03; // 透明度の変化幅の最大値
+	int sqrtNumSplit = 256;			// 分割数の正の平方根
+	int maxNumImg = 100;			// 最大画像数
+	float minDOpacity = 0.01; // 透明度の変化幅の最小値
+	float maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
 	// 定数
 	const int maxNumSplit = 16384 * 16384;						// 最大分割数

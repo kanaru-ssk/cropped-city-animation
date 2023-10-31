@@ -19,46 +19,6 @@
 
 起動後、キーボードの`s`キーを押すとスクリーンショットを`bin/data/outImg/`配下にスクリーンショットが保存される
 
-## パラメータ調整
+## メニュー表示/非表示切り替え
 
-### 分割数変更
-
-`src/ofApp.h` line.27 の数値を変更
-
-```c++
-const int sqrtNumSplit = 256; // 分割数の正の平方根
-```
-
-分割数はsqrtNumSplitの2乗の値になる
-
-```c++
-const int numSplit = sqrtNumSplit * sqrtNumSplit; // 分割数
-```
-
-### 画像数変更
-
-`src/ofApp.h` line.28 の数値を変更
-
-```c++
-const int maxNumImg = 100; // 最大画像数
-```
-
-### 透明度変化幅変更
-
-`src/ofApp.h` line.29-30 の数値を変更
-
-```c++
-const float minDOpacity = 0.01; // 透明度の変化幅の最小値
-const float maxDOpacity = 0.03; // 透明度の変化幅の最大値
-```
-
-### 分割方法変更
-
-`bin/data/shader/draw.frag` line.19-22 のコメントアウトされたコードに変更
-
-```glsl
-// float splitIndex = numSplit * texCoord.x / winSize.x; // 縦分割
-// float splitIndex = numSplit * texCoord.y / winSize.y; // 横分割
-// float splitIndex = numSplit * distance(vec2(0.5), texCoord / winSize);  // 楕円分割
-float splitIndex = numSplit * distance(0.5 * winSize, texCoord) * 2 / length(winSize); // 円分割
-```
+起動後、キーボードの`h`キーを押すとパラメータ調整メニューの表示/非表示が切り替わる

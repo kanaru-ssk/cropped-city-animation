@@ -22,7 +22,7 @@ void main()
 	vec4 splitData = texture(splitTex, vec2(int(splitIndex) % sqrtNumSplit, splitIndex / sqrtNumSplit));
 
 	// テクスチャの座標取得
-	vec2 coord = texCoord * winSize / winSize;
+	vec2 coord = texCoord;
 
 	// 現在の画像
 	int currentImgId = int(splitData.r * numImg);

@@ -7,6 +7,7 @@ void ofApp::initApp()
   winW = ofGetWindowWidth();
   winH = ofGetWindowHeight();
 
+  // guiの値を設定値に反映
   sqrtNumSplit = sqrtNumSplitSlider;
   numImg = numImgSlider;
   minDOpacity = minDOpacitySlider;

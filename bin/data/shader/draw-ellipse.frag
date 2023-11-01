@@ -21,16 +21,13 @@ void main()
 	// 分割領域のデータ取得
 	vec4 splitData = texture(splitTex, vec2(int(splitIndex) % sqrtNumSplit, splitIndex / sqrtNumSplit));
 
-	// テクスチャの座標取得
-	vec2 coord = texCoord;
-
 	// 現在の画像
 	int currentImgId = int(splitData.r * numImg);
-	vec4 currentImg = texture(joinedTex, vec2(coord.x + winSize.x * (currentImgId % imgCol), coord.y + winSize.y * (currentImgId / imgCol)));
+	vec4 currentImg = texture(joinedTex, vec2(texCoord.x + winSize.x * (currentImgId % imgCol), texCoord.y + winSize.y * (currentImgId / imgCol)));
 	
 	// 次の画像
 	int nextImgId = int(splitData.g * numImg);
-	vec4 nextImg = texture(joinedTex, vec2(coord.x + winSize.x * (nextImgId % imgCol), coord.y + winSize.y * (nextImgId / imgCol)));
+	vec4 nextImg = texture(joinedTex, vec2(texCoord.x + winSize.x * (nextImgId % imgCol), texCoord.y + winSize.y * (nextImgId / imgCol)));
 
 	outputColor = mix(currentImg, nextImg, splitData.b);
 }

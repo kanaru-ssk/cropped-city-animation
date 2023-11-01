@@ -42,7 +42,7 @@ void ofApp::draw()
 	emptyImage.draw(0, 0, winW, winH);
 	drawShader.end();
 
-	if (isDisplayGui)
+	if (showGui)
 		gui.draw();
 }
 
@@ -53,7 +53,7 @@ void ofApp::keyPressed(int key)
 		exportImg();
 
 	if (key == 'h')
-		isDisplayGui = !isDisplayGui;
+		showGui = !showGui;
 }
 
 //--------------------------------------------------------------

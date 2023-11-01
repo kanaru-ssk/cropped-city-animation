@@ -37,7 +37,7 @@ private:
 	ofxIntSlider numImgSlider;
 	ofxFloatSlider minDOpacitySlider;
 	ofxFloatSlider maxDOpacitySlider;
-	bool isDisplayGui = true;
+	bool showGui = true;
 
 	// 定数
 	const int maxSqrtNumSplit = 16384; // 最大分割数

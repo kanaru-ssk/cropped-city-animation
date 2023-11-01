@@ -30,13 +30,14 @@ private:
 	float minDOpacity = 0.01; // 透明度の変化幅の最小値
 	float maxDOpacity = 0.03; // 透明度の変化幅の最大値
 
+	// gui
 	ofxPanel gui;
 	ofxIntSlider splitTypeSlider;
 	ofxIntSlider sqrtNumSplitSlider;
 	ofxIntSlider numImgSlider;
 	ofxFloatSlider minDOpacitySlider;
 	ofxFloatSlider maxDOpacitySlider;
-	bool isDisplayGui = true;
+	bool showGui = true;
 
 	// 定数
 	const int maxSqrtNumSplit = 16384; // 最大分割数

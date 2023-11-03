@@ -20,7 +20,7 @@ void ofApp::exportImg()
 
   // split-city_YYYYMMDD_HHMMSS.jpg
   string fileName = "split-city_" + dateStr + "_" + timeStr + ".jpg";
-  ofSaveScreen("outImg/" + fileName);
+  ofSaveScreen("exportImg/" + fileName);
 
   cout << "スクリーンショット : " + fileName << endl;
 }

@@ -52,8 +52,8 @@ void ofApp::keyPressed(int key)
 	if (key == 's')
 		exportImg();
 
-	if (key == 'h')
-		showGui = !showGui;
+	if (key == OF_KEY_RETURN)
+		initApp();
 }
 
 //--------------------------------------------------------------
@@ -74,7 +74,7 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	initApp();
+	showGui = !showGui;
 }
 
 //--------------------------------------------------------------

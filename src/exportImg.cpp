@@ -9,12 +9,10 @@ string toPaddingString(int num)
 
 void ofApp::exportImg()
 {
-  string folderName = "outImg";
   string timeStr =
       toPaddingString(ofGetHours()) +
       toPaddingString(ofGetMinutes()) +
       toPaddingString(ofGetSeconds());
-
   string dateStr =
       ofToString(ofGetYear()) +
       toPaddingString(ofGetMonth()) +
@@ -22,7 +20,7 @@ void ofApp::exportImg()
 
   // split-city_YYYYMMDD_HHMMSS.jpg
   string fileName = "split-city_" + dateStr + "_" + timeStr + ".jpg";
-  ofSaveScreen(folderName + "/" + fileName);
+  ofSaveScreen("outImg/" + fileName);
 
   cout << "スクリーンショット : " + fileName << endl;
 }

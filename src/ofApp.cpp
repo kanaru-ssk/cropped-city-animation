@@ -9,8 +9,10 @@ void ofApp::setup()
 	gui.add(splitTypeSlider.setup("splitType", 1, 1, 4));
 	gui.add(sqrtNumSplitSlider.setup("sqrtNumSplit", 4, 1, 256));
 	gui.add(numImgSlider.setup("numImg", numImg, 1, numImg));
-	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.03));
-	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.03, 0.5));
+	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.005));
+	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.005, 0.5));
+	gui.add(hintScreenshot.setup(" 's'  key", "export img"));
+	gui.add(hitInitApp.setup("enter key", "init app"));
 
 	initApp();
 }
@@ -33,7 +35,7 @@ void ofApp::update()
 }
 
 //--------------------------------------------------------------
-// 描画処理 シェーダー側のコードは bin/data/shader/draw.frag
+// 描画処理 シェーダー側のコードは bin/data/shader/draw-*.frag
 void ofApp::draw()
 {
 	// 空画像上に描画シェーダーのテクスチャを描画
@@ -52,8 +54,8 @@ void ofApp::keyPressed(int key)
 	if (key == 's')
 		exportImg();
 
-	if (key == 'h')
-		showGui = !showGui;
+	if (key == OF_KEY_RETURN)
+		initApp();
 }
 
 //--------------------------------------------------------------
@@ -74,7 +76,7 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	initApp();
+	showGui = !showGui;
 }
 
 //--------------------------------------------------------------

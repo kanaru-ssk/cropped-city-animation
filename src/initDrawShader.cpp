@@ -31,23 +31,25 @@ void ofApp::initDrawShader()
   }
   joinedFbo.end();
 
-  // draw.fragにデータを送信
+  // シェーダー側で条件分岐をしたくないので分割タイプ毎にロードするシェーダーを切替
   if (splitTypeSlider == 1)
-  {
-    drawShader.load("shader/passthru.vert", "shader/draw-circle.frag");
-  }
-  else if (splitTypeSlider == 2)
-  {
-    drawShader.load("shader/passthru.vert", "shader/draw-ellipse.frag");
-  }
-  else if (splitTypeSlider == 3)
-  {
-    drawShader.load("shader/passthru.vert", "shader/draw-horizontal.frag");
-  }
-  else
   {
     drawShader.load("shader/passthru.vert", "shader/draw-vertical.frag");
   }
+  else if (splitTypeSlider == 2)
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-horizontal.frag");
+  }
+  else if (splitTypeSlider == 3)
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-ellipse.frag");
+  }
+  else
+  {
+    drawShader.load("shader/passthru.vert", "shader/draw-circle.frag");
+  }
+
+  // draw-*.fragにデータを送信
   drawShader.begin();
   drawShader.setUniform1i("sqrtNumSplit", sqrtNumSplit);
   drawShader.setUniform1i("numSplit", sqrtNumSplit * sqrtNumSplit);

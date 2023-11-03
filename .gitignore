@@ -2,7 +2,7 @@
 .DS_Store
 
 bin/split-city_debug.app
-bin/data/outImg
+bin/data/exportImg
 
 [Bb]uild/
 [Oo]bj/

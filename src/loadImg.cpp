@@ -4,7 +4,7 @@
 void ofApp::loadImg()
 {
   ofDirectory imagesDir;
-  imagesDir.listDir("images");
+  imagesDir.listDir("loadImg");
   imagesDir.allowExt("jpg");
 
   numImg = imagesDir.size();

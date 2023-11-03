@@ -25,10 +25,10 @@ public:
 
 private:
 	// 設定値
-	int sqrtNumSplit = 256;		// 分割数の正の平方根
-	int numImg;								// 画像数
-	float minDOpacity = 0.01; // 透明度の変化幅の最小値
-	float maxDOpacity = 0.03; // 透明度の変化幅の最大値
+	int sqrtNumSplit;	 // 分割数の正の平方根
+	int numImg;				 // 画像数
+	float minDOpacity; // 透明度の変化幅の最小値
+	float maxDOpacity; // 透明度の変化幅の最大値
 
 	// gui
 	ofxPanel gui;
@@ -39,9 +39,7 @@ private:
 	ofxFloatSlider maxDOpacitySlider;
 	bool showGui = true;
 
-	// 定数
-	const int maxSqrtNumSplit = 16384; // 最大分割数
-	const int maxNumSplit = maxSqrtNumSplit * maxSqrtNumSplit;
+	const int maxNumSplit = 16384 * 16384; // 最大分割数
 
 	void loadImg();					 // setupで呼び出す
 	void initApp();					 // setup,mousePressed,windowResized で呼び出す

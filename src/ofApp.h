@@ -24,6 +24,8 @@ public:
 	void gotMessage(ofMessage msg);
 
 private:
+	const int maxNumSplit = 16384 * 16384; // 最大分割数
+
 	// 設定値
 	int sqrtNumSplit;	 // 分割数の正の平方根
 	int numImg;				 // 画像数
@@ -41,12 +43,10 @@ private:
 	ofxLabel hitInitApp;
 	bool showGui = true;
 
-	const int maxNumSplit = 16384 * 16384; // 最大分割数
-
 	void loadImg();					 // setupで呼び出す
 	void initApp();					 // setup,mousePressed,windowResized で呼び出す
 	void initUpdateShader(); // update.fragに渡すデータ初期化
-	void initDrawShader();	 // draw.fragに渡すデータ初期化
+	void initDrawShader();	 // draw-*.fragに渡すデータ初期化
 	void exportImg();				 // 's'キーを押した時に呼び出す
 
 	// 入力画像

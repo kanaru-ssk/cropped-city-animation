@@ -48,7 +48,7 @@ void ofApp::initUpdateShader()
   splitShader.end();
 }
 
-// draw.fragに渡すデータ初期化
+// draw-*.fragに渡すデータ初期化
 void ofApp::initDrawShader()
 {
   // 結合画像内の画像の行数,列数を計算

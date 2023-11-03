@@ -9,8 +9,8 @@ void ofApp::setup()
 	gui.add(splitTypeSlider.setup("splitType", 1, 1, 4));
 	gui.add(sqrtNumSplitSlider.setup("sqrtNumSplit", 4, 1, 256));
 	gui.add(numImgSlider.setup("numImg", numImg, 1, numImg));
-	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.03));
-	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.03, 0.5));
+	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.005));
+	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.005, 0.5));
 
 	initApp();
 }

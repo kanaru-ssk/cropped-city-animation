@@ -11,6 +11,8 @@ void ofApp::setup()
 	gui.add(numImgSlider.setup("numImg", numImg, 1, numImg));
 	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.005));
 	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.005, 0.5));
+	gui.add(hintScreenshot.setup(" 's'  key", "export img"));
+	gui.add(hitInitApp.setup("enter key", "init app"));
 
 	initApp();
 }

@@ -37,6 +37,8 @@ private:
 	ofxIntSlider numImgSlider;
 	ofxFloatSlider minDOpacitySlider;
 	ofxFloatSlider maxDOpacitySlider;
+	ofxLabel hintScreenshot;
+	ofxLabel hitInitApp;
 	bool showGui = true;
 
 	const int maxNumSplit = 16384 * 16384; // 最大分割数

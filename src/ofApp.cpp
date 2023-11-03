@@ -33,7 +33,7 @@ void ofApp::update()
 }
 
 //--------------------------------------------------------------
-// 描画処理 シェーダー側のコードは bin/data/shader/draw.frag
+// 描画処理 シェーダー側のコードは bin/data/shader/draw-*.frag
 void ofApp::draw()
 {
 	// 空画像上に描画シェーダーのテクスチャを描画

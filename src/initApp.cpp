@@ -52,14 +52,14 @@ void ofApp::initUpdateShader()
 void ofApp::initDrawShader()
 {
   // 結合画像内の画像の行数,列数を計算
-  int imgCol = numImg * winW < maxNumSplit ? numImg : floor(maxNumSplit / winW);
+  int imgCol = numImg * winW < maxSqrtNumSplit ? numImg : floor(maxSqrtNumSplit / winW);
   int imgRow = ceil(numImg / float(imgCol));
   int joinedTexW = winW * imgCol;
   int joinedTexH = winH * imgRow;
   // 結合画像サイズが制限を超える場合は画像数を減らす
-  if (joinedTexH > maxNumSplit)
+  if (joinedTexH > maxSqrtNumSplit)
   {
-    imgRow = floor(maxNumSplit / winH);
+    imgRow = floor(maxSqrtNumSplit / winH);
     joinedTexH = winH * imgRow;
     numImg = imgCol * imgRow;
     cout << "画像数変更 : " + ofToString(numImg) << endl;

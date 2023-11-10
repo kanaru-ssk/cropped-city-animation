@@ -1,5 +1,11 @@
 .vscode
 .DS_Store
+split-city.xcodeproj
+config.make
+Makefile
+openFrameworks-Info.plist
+Project.xcconfig
+split-city.code-workspace
 
 bin/split-city_debug.app
 bin/data/exportImg

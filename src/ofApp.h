@@ -24,7 +24,8 @@ public:
 	void gotMessage(ofMessage msg);
 
 private:
-	const int maxNumSplit = 16384 * 16384; // 最大分割数
+	const int maxSqrtNumSplit = 16384;
+	const int maxNumSplit = maxSqrtNumSplit * maxSqrtNumSplit; // 最大分割数
 
 	// 設定値
 	int sqrtNumSplit;	 // 分割数の正の平方根

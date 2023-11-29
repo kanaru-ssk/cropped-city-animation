@@ -1,6 +1,6 @@
 # Split City
 
-![デモGIF](/bin/data/demo.jpg)
+![デモ画像](/bin/data/demo.jpg)
 
 ### メニュー表示/非表示切り替え
 

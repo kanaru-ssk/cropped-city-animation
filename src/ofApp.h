@@ -30,6 +30,7 @@ private:
 	// 設定値
 	int sqrtNumSplit;	 // 分割数の正の平方根
 	int numImg;				 // 画像数
+	int numLimitImg;	 // 同時表示画像数
 	float minDOpacity; // 透明度の変化幅の最小値
 	float maxDOpacity; // 透明度の変化幅の最大値
 
@@ -37,12 +38,12 @@ private:
 	ofxPanel gui;
 	ofxIntSlider splitTypeSlider;
 	ofxIntSlider sqrtNumSplitSlider;
-	ofxIntSlider numImgSlider;
+	ofxIntSlider numLimitImgSlider;
 	ofxFloatSlider minDOpacitySlider;
 	ofxFloatSlider maxDOpacitySlider;
 	ofxLabel hintScreenshot;
 	ofxLabel hitInitApp;
-	bool showGui = true;
+	bool showGui = false;
 
 	void loadImg();					 // setupで呼び出す
 	void initApp();					 // setup,mousePressed,windowResized で呼び出す

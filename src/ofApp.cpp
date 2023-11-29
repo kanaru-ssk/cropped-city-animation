@@ -4,14 +4,16 @@
 // 起動時に一度実行される
 void ofApp::setup()
 {
+	ofSetDataPathRoot("../Resources/data/");
+
 	loadImg();
 
 	gui.setup();
-	gui.add(splitTypeSlider.setup("splitType", 1, 1, 4));
-	gui.add(sqrtNumSplitSlider.setup("sqrtNumSplit", 4, 1, 256));
-	gui.add(numImgSlider.setup("numImg", numImg, 1, numImg));
-	gui.add(minDOpacitySlider.setup("minDOpacity", 0.005, 0.002, 0.005));
-	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.03, 0.005, 0.5));
+	gui.add(splitTypeSlider.setup("splitType", 4, 1, 4));
+	gui.add(sqrtNumSplitSlider.setup("sqrtNumSplit", 256, 1, 256));
+	gui.add(numLimitImgSlider.setup("numLimitImg", 9, 1, numImg));
+	gui.add(minDOpacitySlider.setup("minDOpacity", 0.0035, 0.002, 0.005));
+	gui.add(maxDOpacitySlider.setup("maxDOpacity", 0.01, 0.005, 0.5));
 	gui.add(hintScreenshot.setup(" 's'  key", "export img"));
 	gui.add(hitInitApp.setup("enter key", "init app"));
 

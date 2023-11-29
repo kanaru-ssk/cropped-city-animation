@@ -1,5 +1,6 @@
 #version 150
 
+uniform float imgLimitRatio;
 uniform float elapsedTime;
 uniform sampler2DRect dOpacityTex;
 uniform sampler2DRect preSplitTex;
@@ -31,7 +32,7 @@ void main()
   // 3. 次の画像をランダムに変更
   splitData.b += isSwitch;
   splitData.g = splitData.r * isSwitch + splitData.g * isNotSwitch;
-  splitData.r = fract(elapsedTime * texCoord.x) * isSwitch + splitData.r * isNotSwitch;
+  splitData.r = (imgLimitRatio * fract(elapsedTime * texCoord.x) + (1.0 - imgLimitRatio) * fract(elapsedTime / 50.0)) * isSwitch + splitData.r * isNotSwitch;
 
   outputColor = splitData;
 }

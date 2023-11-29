@@ -9,7 +9,7 @@ void ofApp::initApp()
 
   // guiの値を設定値に反映
   sqrtNumSplit = sqrtNumSplitSlider;
-  numImg = numImgSlider;
+  numLimitImg = numLimitImgSlider;
   minDOpacity = minDOpacitySlider;
   maxDOpacity = maxDOpacitySlider;
 
@@ -24,6 +24,12 @@ void ofApp::initApp()
 // update.fragに渡すデータ初期化
 void ofApp::initUpdateShader()
 {
+  float imgLimitRatio = (float)numLimitImg / (float)numImg;
+  if (imgLimitRatio > 1.0)
+  {
+    imgLimitRatio = 1.0;
+  }
+
   // 分割領域のデータ作成
   int numSplit = sqrtNumSplit * sqrtNumSplit;
   vector<float> splitData(numSplit * 3);
@@ -32,7 +38,7 @@ void ofApp::initUpdateShader()
   {
     splitData[i * 3 + 0] = ofRandom(1.0);                 // 現在の画像ID
     splitData[i * 3 + 1] = ofRandom(1.0);                 // 次の画像ID
-    splitData[i * 3 + 2] = 1.0f;                          // 透明度
+    splitData[i * 3 + 2] = ofRandom(1.0);                 // 透明度
     dOpacityData[i] = ofRandom(minDOpacity, maxDOpacity); // 透明度の変化幅
   }
   // テクスチャにデータをアタッチ
@@ -44,6 +50,7 @@ void ofApp::initUpdateShader()
   // update.fragにデータ送信
   splitShader.load("shader/passthru.vert", "shader/update.frag");
   splitShader.begin();
+  splitShader.setUniform1f("imgLimitRatio", imgLimitRatio);
   splitShader.setUniformTexture("dOpacityTex", dOpacityTex, 4);
   splitShader.end();
 }

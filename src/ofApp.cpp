@@ -4,7 +4,8 @@
 // 起動時に一度実行される
 void ofApp::setup()
 {
-	ofSetDataPathRoot("../Resources/data/");
+	// for standalone build
+	// ofSetDataPathRoot("../Resources/data/");
 
 	loadImg();
 
